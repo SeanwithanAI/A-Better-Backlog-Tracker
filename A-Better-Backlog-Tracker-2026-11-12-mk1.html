@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A Better Backlog Tracker</title>
+<meta name="apple-mobile-web-app-title" content="A Better Backlog Tracker">
+<meta name="application-name" content="A Better Backlog Tracker">
+<meta name="description" content="A Better Backlog Tracker: game backlog and play log by SeanwithanAI">
+<meta name="theme-color" content="#0f1117">
+<link id="favicon" rel="icon" href="">
+<style>
+:root{
+  --bg:#0f1117;--panel:#171a23;--panel2:#1f2330;--line:#2a2f3d;--text:#e7e9ee;--muted:#9aa1b2;--faint:#6b7285;
+  --accent:#8b5cf6;--accent2:#a78bfa;--good:#34d399;--warn:#fbbf24;--bad:#f87171;--blue:#60a5fa;--star:#fbbf24;
+  --r:14px;--shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
+body.lock{overflow:hidden}
+a{color:var(--accent2)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+.hidden{display:none!important}
+#nojs{max-width:640px;margin:40px auto;padding:20px;background:var(--panel);border-radius:var(--r);text-align:center}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(15,17,23,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:calc(10px + env(safe-area-inset-top)) 16px 0}
+.hrow{display:flex;align-items:center;gap:12px;max-width:1200px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.logo{width:46px;height:46px;flex:none;border-radius:11px;box-shadow:0 4px 14px rgba(139,92,246,.35)}
+.logo svg{width:100%;height:100%;display:block}
+.btext{min-width:0}
+.bname{font-weight:800;font-size:17px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bsub{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bby{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:2px}
+.bby em{font-style:italic}
+.ver{display:inline-block;padding:1px 8px;border-radius:999px;background:rgba(139,92,246,.16);color:var(--accent2);font-size:11px;font-weight:700;border:1px solid rgba(139,92,246,.35)}
+.iconbtn{background:var(--panel2);border:1px solid var(--line);border-radius:10px;width:40px;height:40px;display:grid;place-items:center;flex:none}
+.iconbtn:hover{border-color:var(--accent)}
+nav.tabs{display:flex;gap:4px;max-width:1200px;margin:10px auto 0;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:9px 12px 11px;font-weight:600;white-space:nowrap}
+nav.tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
+
+main{max-width:1200px;margin:0 auto;padding:16px 16px calc(40px + env(safe-area-inset-bottom))}
+section.view{display:none}
+section.view.on{display:block}
+h2{font-size:19px;margin:4px 0 12px}
+h3{font-size:15px;margin:18px 0 8px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.grow{flex:1;min-width:0}
+input[type=text],input[type=number],input[type=date],input[type=password],input[type=search],select,textarea{
+  background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;width:100%;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:70px}
+label.f{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-weight:600;white-space:nowrap}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.pri:hover{background:#7c4ef0}
+.btn.danger{color:var(--bad)}
+.btn.sm{padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted)}
+.chip.on{color:#fff;border-color:var(--accent);background:rgba(139,92,246,.22)}
+.chip b{color:var(--text);margin-left:4px}
+.tag{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:12px;color:var(--muted);margin:0 4px 4px 0}
+.badge{display:inline-block;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.s-backlog{background:rgba(96,165,250,.16);color:var(--blue)}
+.s-playing{background:rgba(52,211,153,.16);color:var(--good)}
+.s-hold{background:rgba(251,191,36,.16);color:var(--warn)}
+.s-completed{background:rgba(167,139,250,.18);color:var(--accent2)}
+.s-dropped{background:rgba(248,113,113,.16);color:var(--bad)}
+.toolbar{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;margin:12px 0}
+@media(max-width:640px){.toolbar{grid-template-columns:1fr 1fr auto}.toolbar input{grid-column:1/-1}}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.stat .v{font-size:20px;font-weight:800}
+.stat .l{font-size:12px;color:var(--muted)}
+
+/* grid of game cards */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px 12px}
+@media(max-width:480px){.tiles{grid-template-columns:repeat(3,1fr);gap:12px 8px}}
+.tile{cursor:pointer;min-width:0}
+.art{position:relative;aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:linear-gradient(160deg,#2a2f45,#171a23);border:1px solid var(--line);box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .12s,border-color .12s,box-shadow .12s}
+.tile:hover .art{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 24px rgba(139,92,246,.25)}
+.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art .ttl{position:absolute;inset:auto 0 0 0;padding:28px 8px 9px;font-weight:800;font-size:13px;line-height:1.2;background:linear-gradient(transparent,rgba(0,0,0,.85));display:none}
+.art.fallback .ttl,.art.noimg .ttl{display:block}
+.art.noimg .ttl{inset:0;display:flex;align-items:center;justify-content:center;text-align:center;background:none;font-size:14px;padding:10px}
+.art .dot{position:absolute;left:6px;top:6px;padding:2px 6px;font-size:10px;border-radius:5px;backdrop-filter:blur(6px);background:rgba(15,17,23,.78)}
+.art .prog{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(0,0,0,.5)}
+.art .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--good))}
+.tcap{margin-top:6px;font-size:12.5px;line-height:1.3}
+.tcap .n{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcap .m{color:var(--muted);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.viewtog{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.viewtog button{background:var(--panel2);border:0;padding:8px 11px;color:var(--muted);font-weight:600}
+.viewtog button.on{background:rgba(139,92,246,.25);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+@media(max-width:480px){.grid{grid-template-columns:1fr 1fr;gap:10px}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .12s,border-color .12s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cover{aspect-ratio:16/9;background:linear-gradient(135deg,#232838,#1a1d28);position:relative;overflow:hidden}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cover .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--faint);font-size:30px}
+.cover .badge{position:absolute;left:8px;top:8px;backdrop-filter:blur(6px);background:rgba(15,17,23,.75)}
+.cover .mc{position:absolute;right:8px;top:8px;border-radius:6px;padding:1px 6px;font-size:12px;font-weight:800;background:#1f7a35;color:#fff}
+.cbody{padding:10px 11px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.ctitle{font-weight:700;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cmeta{font-size:12.5px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.cfoot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.bar{height:5px;background:var(--panel2);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--good))}
+.hltb{font-weight:700;color:var(--text)}
+.empty{text-align:center;padding:40px 16px;color:var(--muted)}
+.empty .big{font-size:40px;margin-bottom:6px}
+
+/* stars */
+.stars{display:inline-flex;gap:1px;user-select:none;-webkit-user-select:none}
+.st{position:relative;display:inline-block;font-size:26px;line-height:1;width:1em;height:1em}
+.st::before{content:"★";color:#383d4d;position:absolute;left:0;top:0}
+.st i{position:absolute;left:0;top:0;overflow:hidden;height:100%;font-style:normal}
+.st i::before{content:"★";color:var(--star)}
+.stars.sm .st{font-size:14px}
+.stars.edit .st{cursor:pointer;font-size:32px}
+
+/* modal */
+#modal{position:fixed;inset:0;z-index:50;background:rgba(5,6,10,.7);display:none;align-items:flex-end;justify-content:center}
+#modal.on{display:flex}
+.sheet{background:var(--panel);border:1px solid var(--line);width:100%;max-width:820px;max-height:94vh;overflow:auto;border-radius:18px 18px 0 0;box-shadow:var(--shadow);padding-bottom:env(safe-area-inset-bottom)}
+@media(min-width:760px){#modal{align-items:center}.sheet{border-radius:18px;max-height:90vh}}
+.shead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(23,26,35,.96);border-bottom:1px solid var(--line)}
+.shead .t{font-weight:800;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbody{padding:14px}
+.hero{aspect-ratio:16/8;border-radius:12px;overflow:hidden;background:var(--panel2);position:relative}
+.hero img{width:100%;height:100%;object-fit:cover}
+.shots{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scroll-snap-type:x mandatory}
+.shots img{height:96px;width:auto;aspect-ratio:16/9;object-fit:cover;border-radius:8px;flex:none;cursor:zoom-in;scroll-snap-align:start;border:1px solid var(--line);background:var(--panel2)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:12px 0}
+.fact{background:var(--panel2);border-radius:10px;padding:8px 10px}
+.fact .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+.fact .v{font-weight:700;margin-top:2px;word-break:break-word}
+.desc{color:#cfd3dc;white-space:pre-line;max-height:220px;overflow:hidden;position:relative}
+.desc.open{max-height:none}
+.desc:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50px;background:linear-gradient(transparent,var(--panel))}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+.hltbbox{background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(52,211,153,.08));border:1px solid rgba(139,92,246,.35);border-radius:12px;padding:12px;margin:12px 0}
+.hltbbox .row input{max-width:120px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:7px 11px;font-weight:600;font-size:13px;color:var(--muted)}
+.seg button.on{color:#fff;border-color:var(--accent);background:rgba(139,92,246,.25)}
+.loglist{display:flex;flex-direction:column;gap:6px}
+.logitem{display:flex;gap:10px;align-items:center;background:var(--panel2);border-radius:10px;padding:8px 10px}
+.logitem .d{font-size:12.5px;color:var(--muted);width:88px;flex:none}
+.logitem .h{font-weight:800;width:62px;flex:none}
+.logitem .n{flex:1;min-width:0;font-size:13.5px;overflow:hidden;text-overflow:ellipsis}
+.logitem .x{background:none;border:0;color:var(--faint);font-size:18px;padding:0 4px}
+.logitem .x:hover{color:var(--bad)}
+.src{font-size:10.5px;font-weight:800;padding:1px 5px;border-radius:4px;background:#1b2838;color:#66c0f4;margin-left:6px}
+.month{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800;margin:14px 0 6px}
+.picklist{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.pick{display:flex;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px;cursor:pointer;text-align:left;width:100%}
+.pick:hover{border-color:var(--accent)}
+.pick img{width:72px;height:40px;object-fit:cover;border-radius:6px;flex:none;background:#000}
+.steamrow{display:flex;gap:10px;align-items:center;padding:7px 4px;border-bottom:1px solid var(--line)}
+.steamrow img{width:92px;height:43px;object-fit:cover;border-radius:6px;flex:none;background:var(--panel2)}
+.steamrow .nm{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.steamrow input[type=checkbox]{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.scroll{max-height:440px;overflow:auto}
+@media(max-width:480px){.steamrow img{width:64px;height:30px}.steamrow .small{font-size:11.5px;text-align:right}}
+.note{background:var(--panel2);border-left:3px solid var(--accent);border-radius:8px;padding:10px 12px;font-size:13.5px;color:#cfd3dc;margin:10px 0}
+.note.warn{border-left-color:var(--warn)}
+code{background:var(--panel2);padding:1px 5px;border-radius:5px;font-size:12.5px;word-break:break-all}
+.appinfo{font-size:12px;color:var(--faint);text-align:center;margin-top:16px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);opacity:0;background:#262b3a;border:1px solid var(--line);padding:10px 16px;border-radius:12px;z-index:90;transition:.2s;pointer-events:none;max-width:90vw;box-shadow:var(--shadow)}
+#toast.on{opacity:1;transform:translateX(-50%)}
+#lightbox{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center}
+#lightbox.on{display:flex}
+#lightbox img{max-width:96vw;max-height:86vh;border-radius:8px}
+#lightbox .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:0;color:#fff;font-size:28px;width:48px;height:64px;border-radius:10px}
+#lightbox .prev{left:8px}#lightbox .next{right:8px}
+#lightbox .close{position:absolute;top:calc(12px + env(safe-area-inset-top));right:12px;background:rgba(255,255,255,.12);border:0;color:#fff;font-size:22px;width:42px;height:42px;border-radius:50%}
+#lightbox .cnt{position:absolute;bottom:calc(16px + env(safe-area-inset-bottom));color:#ccc;font-size:13px}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="nojs">
+  <h2>A Better Backlog Tracker</h2>
+  <p class="muted">by SeanwithanAI · 2026-11-12 mk1</p>
+  <p>This app needs JavaScript. This preview can't run it. Open this file in a web browser instead.</p>
+</div>
+
+<header class="hidden" id="hdr">
+  <div class="hrow">
+    <div class="brand">
+      <div class="logo" id="logo"></div>
+      <div class="btext">
+        <div class="bname">A Better Backlog Tracker</div>
+        <div class="bsub">Game Backlog &amp; Play Log</div>
+        <div class="bby"><em>by SeanwithanAI</em><span class="ver" id="appVer"></span></div>
+      </div>
+    </div>
+    <button class="iconbtn" id="settingsBtn" title="Settings &amp; backup" aria-label="Settings">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-v="library" class="on">Library</button>
+    <button data-v="discover">Find games</button>
+    <button data-v="log">Play log</button>
+    <button data-v="steam">Steam</button>
+  </nav>
+</header>
+
+<main class="hidden" id="main">
+  <!-- LIBRARY -->
+  <section class="view on" id="v-library">
+    <div class="summary" id="libSummary"></div>
+    <div class="chips" id="statusChips"></div>
+    <div class="toolbar">
+      <input type="search" id="libSearch" placeholder="Search your games…">
+      <select id="libGenre"><option value="">All genres</option></select>
+      <select id="libSort">
+        <option value="added">Recently added</option>
+        <option value="name">Name A–Z</option>
+        <option value="myrating">My rating</option>
+        <option value="rating">User rating</option>
+        <option value="hltb-asc">Shortest main story</option>
+        <option value="hltb-desc">Longest main story</option>
+        <option value="played">Most played</option>
+        <option value="priority">Priority</option>
+      </select>
+      <div class="viewtog" id="viewTog"><button data-lv="tiles" title="Cover tiles">▦</button><button data-lv="cards" title="Detail cards">☰</button></div>
+    </div>
+    <div id="libGrid"></div>
+  </section>
+
+  <!-- DISCOVER -->
+  <section class="view" id="v-discover">
+    <div id="keyNeeded" class="panel hidden">
+      <h2>Connect a game database</h2>
+      <p class="muted small">Searching uses <b>RAWG</b>, a free game database with user ratings, genres, screenshots and descriptions. It needs a free API key (takes about a minute):</p>
+      <ol class="small muted">
+        <li>Go to <a href="https://rawg.io/apidocs" target="_blank" rel="noopener">rawg.io/apidocs</a> and click <b>Get API Key</b>.</li>
+        <li>Make a free account and fill in the short form (any app name and URL work).</li>
+        <li>Copy the key and paste it here.</li>
+      </ol>
+      <div class="row"><input type="text" id="rawgKeyInline" class="grow" placeholder="RAWG API key"><button class="btn pri" id="saveKeyInline">Save key</button></div>
+      <p class="muted small">No key? You can still <a href="#" id="manualAdd1">add a game by hand</a>.</p>
+    </div>
+    <div id="searchUi">
+      <form class="row" id="searchForm">
+        <input type="search" id="q" class="grow" placeholder="Search for a game (e.g. Hollow Knight)" autocomplete="off">
+        <button class="btn pri" type="submit">Search</button>
+      </form>
+      <div class="row small muted" style="margin:8px 0 12px;justify-content:space-between">
+        <span id="searchMsg">Tap a result to see screenshots, ratings and details before adding it.</span>
+        <a href="#" id="manualAdd2">Add by hand</a>
+      </div>
+      <div class="grid" id="results"></div>
+      <div class="row" style="justify-content:center;margin-top:14px"><button class="btn hidden" id="moreBtn">Load more</button></div>
+    </div>
+  </section>
+
+  <!-- PLAY LOG -->
+  <section class="view" id="v-log">
+    <div class="summary" id="logSummary"></div>
+    <div class="panel">
+      <h3 style="margin-top:0">Log a play session</h3>
+      <div class="two">
+        <div><label class="f">Game</label><select id="lgGame"></select></div>
+        <div class="two">
+          <div><label class="f">Date</label><input type="date" id="lgDate"></div>
+          <div><label class="f">Hours</label><input type="number" id="lgHours" min="0" step="0.25" placeholder="1.5"></div>
+        </div>
+      </div>
+      <label class="f">Note (optional)</label>
+      <input type="text" id="lgNote" placeholder="Beat the first boss, reached chapter 3…">
+      <div class="row" style="margin-top:10px;justify-content:flex-end"><button class="btn pri" id="lgAdd">Add to log</button></div>
+    </div>
+    <div id="logList"></div>
+  </section>
+
+  <!-- STEAM -->
+  <section class="view" id="v-steam">
+    <div class="panel">
+      <h2>Steam playtime</h2>
+      <p class="muted small" style="margin-top:0">Pulls your Steam library and playtime. Each sync compares against the last one and adds the new hours to your play log automatically. Backlog games you've started playing move to <b>Playing</b>.</p>
+      <div class="two">
+        <div><label class="f">Steam Web API key</label><input type="password" id="stKey" placeholder="32-character key" autocomplete="off"></div>
+        <div><label class="f">SteamID64</label><input type="text" id="stId" placeholder="7656119…" inputmode="numeric"></div>
+      </div>
+      <p class="small muted">Get a key at <a href="https://steamcommunity.com/dev/apikey" target="_blank" rel="noopener">steamcommunity.com/dev/apikey</a> (any domain name works). Your SteamID64 is the long number in your profile link, or look it up at <a href="https://steamid.io" target="_blank" rel="noopener">steamid.io</a>. In Steam's privacy settings, <b>Game details</b> must be <b>Public</b>.</p>
+      <label class="f">CORS proxy (optional)</label>
+      <input type="text" id="stProxy" placeholder="e.g. http://truenas.local:8085/  or  https://proxy/?url={url}">
+      <p class="small muted">Steam doesn't let web pages read its data directly. With a proxy, <b>Sync now</b> works in one tap. Without one, use the two-step method below.</p>
+      <div class="row" style="margin-top:8px">
+        <button class="btn pri" id="stSync">Sync now</button>
+        <span class="small muted" id="stLast"></span>
+      </div>
+      <div id="stManual" class="note hidden">
+        <b>Two-step sync (no proxy needed)</b>
+        <ol style="margin:6px 0;padding-left:20px">
+          <li><button class="btn sm" id="stOpen">Open my Steam data</button> — it opens in a new tab as text.</li>
+          <li>Select all of it, copy, and paste it here:</li>
+        </ol>
+        <textarea id="stPaste" placeholder='{"response":{"game_count":…'></textarea>
+        <div class="row" style="justify-content:flex-end;margin-top:8px"><button class="btn pri" id="stRead">Read pasted data</button></div>
+      </div>
+      <div id="stResult"></div>
+    </div>
+
+    <div id="stRecentWrap" class="hidden">
+      <h3>Played on Steam in the last 2 weeks</h3>
+      <div class="panel" id="stRecent"></div>
+    </div>
+
+    <div id="stOwnedWrap" class="hidden">
+      <h3>Steam games not in your library</h3>
+      <div class="panel">
+        <div class="row">
+          <input type="search" id="stFilter" class="grow" placeholder="Filter…">
+          <select id="stShow" style="width:auto"><option value="all">All</option><option value="unplayed">Never played</option><option value="played">Played</option></select>
+        </div>
+        <div class="row small" style="margin:8px 0;justify-content:space-between">
+          <label><input type="checkbox" id="stAll"> Select all shown</label>
+          <span class="muted" id="stCount"></span>
+        </div>
+        <div class="scroll" id="stOwned"></div>
+        <div class="row" style="margin-top:10px;justify-content:flex-end">
+          <select id="stImportAs" style="width:auto"><option value="backlog">Add as Backlog</option><option value="playing">Add as Playing</option><option value="completed">Add as Completed</option></select>
+          <button class="btn pri" id="stImport">Add selected</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px" id="stFillWrap">
+      <b>Fill in missing details</b>
+      <p class="small muted" style="margin:4px 0 8px">Games added from Steam start with just a name and picture. This looks each one up on RAWG to add genres, user ratings, screenshots and descriptions. Only exact name matches are filled in.</p>
+      <div class="row"><button class="btn" id="stFill">Fill in details</button><span class="small muted" id="stFillMsg"></span></div>
+    </div>
+  </section>
+  <div class="appinfo" id="appInfo"></div>
+</main>
+
+<div id="modal" role="dialog" aria-modal="true"><div class="sheet" id="sheet"></div></div>
+<div id="lightbox"><button class="close" aria-label="Close">✕</button><button class="nav prev" aria-label="Previous">‹</button><img alt=""><button class="nav next" aria-label="Next">›</button><div class="cnt"></div></div>
+<div id="toast"></div>
+
+<script>
+document.getElementById('nojs').remove();
+document.getElementById('hdr').classList.remove('hidden');
+document.getElementById('main').classList.remove('hidden');
+
+// version = the date of the update; a second update that day is "mk1", then "mk2"…
+const APP_NAME = 'A Better Backlog Tracker', APP_VERSION = '2026-11-12 mk1', APP_BY = 'SeanwithanAI';   // bump the version with every update
+const FILE_BASE = APP_NAME.replace(/ /g, '-');   // A-Better-Backlog-Tracker
+const KEY = 'abbt-data-v1';
+const RAWG = 'https://api.rawg.io/api/';
+const STATUSES = [['backlog','Backlog'],['playing','Playing'],['hold','On hold'],['completed','Completed'],['dropped','Dropped']];
+const STATUS_NAME = Object.fromEntries(STATUSES);
+const PRIORITIES = [['high','High'],['med','Medium'],['low','Low']];
+
+const LOGO = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="A Better Backlog Tracker logo"><defs><linearGradient id="bbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B5CF6"/><stop offset="1" stop-color="#4C1D95"/></linearGradient><linearGradient id="bgl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#bbg)"/><rect width="64" height="64" rx="15" fill="url(#bgl)"/><circle cx="32" cy="32" r="21" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="4.5"/><circle cx="32" cy="32" r="21" fill="none" stroke="#34D399" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="92 132" transform="rotate(-90 32 32)"/><g fill="#fff"><rect x="19" y="25.5" width="26" height="13" rx="6.5"/><circle cx="23" cy="37" r="4.6"/><circle cx="41" cy="37" r="4.6"/></g><g fill="#5B21B6"><rect x="23" y="28.6" width="2.2" height="6.6" rx=".6"/><rect x="20.8" y="30.8" width="6.6" height="2.2" rx=".6"/><circle cx="39.6" cy="30.6" r="1.5"/><circle cx="42.6" cy="33.4" r="1.5"/></g></svg>`;
+
+// ---------- helpers ----------
+const $ = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const pad = n => String(n).padStart(2, '0');
+const iso = d => { d = new Date(d); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const todayISO = () => iso(new Date());
+const norm = s => String(s||'').toLowerCase().replace(/[®™©]/g,'').replace(/&/g,'and').replace(/[^a-z0-9]+/g,'');
+const fmtH = h => { if (h == null || isNaN(h)) return '—'; const r = Math.round(h*10)/10; return (r % 1 ? r.toFixed(1) : r) + ' h'; };
+const fmtDate = s => { if (!s) return '—'; const d = new Date(s + (s.length === 10 ? 'T12:00' : '')); return d.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'}); };
+const hltbUrl = name => 'https://howlongtobeat.com/?q=' + encodeURIComponent(name || '');
+const steamPortrait = id => `https://cdn.cloudflare.steamstatic.com/steam/apps/${id}/library_600x900.jpg`;
+const steamHeader = id => `https://cdn.cloudflare.steamstatic.com/steam/apps/${id}/header.jpg`;
+const thumb = (u, w=600, h=400) => u && /media\.rawg\.io\/media\/(games|screenshots)\//.test(u) ? u.replace(/\/media\/(games|screenshots)\//, `/media/crop/${w}/${h}/$1/`) : u;
+let toastT;
+function toast(msg, ms=2600){ const t=$('#toast'); t.textContent=msg; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'), ms); }
+
+// ---------- data ----------
+function blank(){ return { v:1, games:[], settings:{rawgKey:'', steamKey:'', steamId:'', proxy:''}, steam:{snapshot:{}, lastSync:null, owned:[]} }; }
+function load(){
+  try { const d = JSON.parse(localStorage.getItem(KEY)); if (d && Array.isArray(d.games)) return fix(d); } catch(e) {}
+  return blank();
+}
+function fix(d){
+  const b = blank();
+  d.settings = Object.assign(b.settings, d.settings||{});
+  d.steam = Object.assign(b.steam, d.steam||{});
+  d.games.forEach(g => { g.logs = g.logs||[]; g.genres = g.genres||[]; g.platforms = g.platforms||[]; g.shots = g.shots||[]; });
+  return d;
+}
+let S = load();
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) { toast('Could not save: ' + e.message, 5000); } }
+const byId = id => S.games.find(g => g.id === id);
+const manualHours = g => g.logs.filter(l => l.source !== 'steam').reduce((a,l) => a + (+l.hours||0), 0);
+const played = g => (g.steamMinutes ? g.steamMinutes/60 : 0) + manualHours(g);
+
+// ---------- RAWG ----------
+async function rawg(path, params={}){
+  if (!S.settings.rawgKey) throw new Error('Add your RAWG API key first.');
+  const qs = new URLSearchParams({key:S.settings.rawgKey, ...params});
+  let r;
+  try { r = await fetch(RAWG + path + '?' + qs); } catch(e) { throw new Error("Couldn't reach RAWG. Check your connection."); }
+  if (r.status === 401 || r.status === 403) throw new Error('RAWG rejected the API key. Check it in Settings.');
+  if (!r.ok) throw new Error('RAWG error ' + r.status);
+  return r.json();
+}
+function fromRawg(x){
+  return {
+    rawgId:x.id, slug:x.slug, name:x.name, cover:x.background_image||'', released:x.released||'',
+    genres:(x.genres||[]).map(g=>g.name), platforms:(x.platforms||[]).map(p=>p.platform?.name).filter(Boolean),
+    rawgRating:x.rating||0, ratingsCount:x.ratings_count||0, metacritic:x.metacritic||null, avgPlaytime:x.playtime||0,
+    shots:(x.short_screenshots||[]).map(s=>s.image).filter(u=>u && u!==x.background_image).slice(0,8),
+    esrb:x.esrb_rating?.name||''
+  };
+}
+async function rawgDetail(id){
+  const [d, sh, st] = await Promise.all([
+    rawg('games/' + id),
+    rawg(`games/${id}/screenshots`, {page_size:12}).catch(()=>({results:[]})),
+    rawg(`games/${id}/stores`).catch(()=>({results:[]}))
+  ]);
+  const base = fromRawg(d);
+  const shots = (sh.results||[]).map(s=>s.image).filter(Boolean);
+  if (shots.length) base.shots = shots.slice(0,12);
+  let steamAppId = null;
+  for (const s of (st.results||[]).concat(d.stores||[])) { const m = String(s.url||'').match(/store\.steampowered\.com\/app\/(\d+)/); if (m) { steamAppId = +m[1]; break; } }
+  return Object.assign(base, {
+    description:(d.description_raw||'').trim().slice(0,2500),
+    developers:(d.developers||[]).map(x=>x.name), publishers:(d.publishers||[]).map(x=>x.name),
+    website:d.website||'', ratingsBreakdown:(d.ratings||[]).map(r=>({title:r.title, pct:r.percent})),
+    tags:(d.tags||[]).filter(t=>t.language==='eng').slice(0,10).map(t=>t.name), steamAppId, detailed:true
+  });
+}
+
+// ---------- star widget ----------
+function starsHTML(val, cls=''){
+  let h = `<span class="stars ${cls}">`;
+  for (let i=1;i<=5;i++){ const f = Math.max(0, Math.min(1, (val||0) - (i-1))); h += `<span class="st" data-n="${i}"><i style="width:${f*100}%"></i></span>`; }
+  return h + '</span>';
+}
+
+// ---------- tabs ----------
+let view = 'library';
+$('#tabs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) show(b.dataset.v); });
+function show(v){
+  view = v;
+  $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  $$('section.view').forEach(s => s.classList.toggle('on', s.id === 'v-' + v));
+  if (v === 'library') renderLibrary();
+  if (v === 'discover') renderDiscover();
+  if (v === 'log') renderLog();
+  if (v === 'steam') renderSteam();
+  window.scrollTo(0,0);
+}
+
+// ---------- library ----------
+let libStatus = 'all';
+function coverHTML(g){
+  const src = g.cover ? thumb(g.cover) : (g.steamAppId ? steamHeader(g.steamAppId) : '');
+  return `<div class="cover"><div class="ph">🎮</div>${src ? `<img loading="lazy" src="${esc(src)}" alt="" onerror="this.remove()">` : ''}`;
+}
+function tileSources(g){
+  const a = [];
+  if (g.coverArt) a.push([g.coverArt, 0]);
+  if (g.steamAppId) a.push([steamPortrait(g.steamAppId), 0]);
+  if (g.cover) a.push([thumb(g.cover, 600, 900), 1]);
+  if (g.steamAppId) a.push([steamHeader(g.steamAppId), 1]);
+  return a;
+}
+function artNext(img){
+  const alts = JSON.parse(img.dataset.alts || '[]'), art = img.parentElement;
+  const nx = alts.shift();
+  if (!nx) { img.remove(); art.classList.add('noimg'); return; }
+  img.dataset.alts = JSON.stringify(alts); art.classList.toggle('fallback', !!nx[1]); img.src = nx[0];
+}
+function gameTile(g){
+  const src = tileSources(g), first = src.shift();
+  const p = played(g), pct = g.hltbMain && p ? Math.min(100, p / g.hltbMain * 100) : 0;
+  const meta = [g.hltbMain ? fmtH(g.hltbMain) + ' main' : '', p ? fmtH(p) + ' played' : ''].filter(Boolean).join(' · ') || (g.genres[0] || STATUS_NAME[g.status]);
+  return `<div class="tile" data-id="${g.id}">
+    <div class="art ${first ? (first[1] ? 'fallback' : '') : 'noimg'}">
+      ${first ? `<img loading="lazy" src="${esc(first[0])}" data-alts='${esc(JSON.stringify(src))}' alt="" onerror="artNext(this)">` : ''}
+      <div class="ttl">${esc(g.name)}</div>
+      <span class="badge dot s-${g.status}">${STATUS_NAME[g.status]}</span>
+      ${pct ? `<div class="prog"><i style="width:${pct}%"></i></div>` : ''}
+    </div>
+    <div class="tcap"><div class="n">${esc(g.name)}</div><div class="m">${g.myRating ? '★ ' + g.myRating + ' · ' : ''}${meta}</div></div>
+  </div>`;
+}
+function gameCard(g){
+  const p = played(g), pct = g.hltbMain && p ? Math.min(100, p / g.hltbMain * 100) : 0;
+  return `<div class="card" data-id="${g.id}">
+    ${coverHTML(g)}<span class="badge s-${g.status}">${STATUS_NAME[g.status]}</span>${g.metacritic?`<span class="mc">${g.metacritic}</span>`:''}</div>
+    <div class="cbody">
+      <div class="ctitle">${esc(g.name)}</div>
+      <div class="cmeta">${g.genres.slice(0,2).map(esc).join(' · ') || '<span>No genre yet</span>'}</div>
+      <div class="cmeta">${g.myRating ? starsHTML(g.myRating,'sm') : (g.rawgRating ? `<span title="RAWG user rating">★ ${g.rawgRating.toFixed(1)} users</span>` : '')}</div>
+      ${pct ? `<div class="bar" title="${Math.round(pct)}% of main story time"><i style="width:${pct}%"></i></div>` : ''}
+      <div class="cfoot"><span>${g.hltbMain ? `<span class="hltb">${fmtH(g.hltbMain)}</span> main` : '<span>Main: —</span>'}</span><span>${p ? fmtH(p) + ' played' : ''}</span></div>
+    </div></div>`;
+}
+function renderLibrary(){
+  const counts = {all:S.games.length}; STATUSES.forEach(([k]) => counts[k] = S.games.filter(g=>g.status===k).length);
+  $('#statusChips').innerHTML = [['all','All'], ...STATUSES].map(([k,n]) => `<button class="chip ${libStatus===k?'on':''}" data-s="${k}">${n}<b>${counts[k]}</b></button>`).join('');
+  const back = S.games.filter(g=>g.status==='backlog'), withT = back.filter(g=>g.hltbMain);
+  const yr = new Date().getFullYear() + '';
+  const doneYr = S.games.filter(g=>g.status==='completed' && (g.finishedAt||'').startsWith(yr)).length;
+  const totalPlayed = S.games.reduce((a,g)=>a+played(g),0);
+  $('#libSummary').innerHTML = `
+    <div class="stat"><div class="v">${back.length}</div><div class="l">games in backlog</div></div>
+    <div class="stat"><div class="v">${fmtH(withT.reduce((a,g)=>a+(+g.hltbMain),0))}</div><div class="l">backlog main stories${back.length>withT.length?` · ${back.length-withT.length} without a time`:''}</div></div>
+    <div class="stat"><div class="v">${doneYr}</div><div class="l">completed in ${yr}</div></div>
+    <div class="stat"><div class="v">${fmtH(totalPlayed)}</div><div class="l">total played</div></div>`;
+  const genres = [...new Set(S.games.flatMap(g=>g.genres))].sort();
+  const gsel = $('#libGenre'), cur = gsel.value;
+  gsel.innerHTML = '<option value="">All genres</option>' + genres.map(g=>`<option ${g===cur?'selected':''}>${esc(g)}</option>`).join('');
+  const q = norm($('#libSearch').value), genre = gsel.value, sort = $('#libSort').value;
+  let list = S.games.filter(g => (libStatus==='all'||g.status===libStatus) && (!genre||g.genres.includes(genre)) && (!q||norm(g.name).includes(q)));
+  const pr = {high:0, med:1, low:2};
+  const sorters = {
+    added:(a,b)=>(b.addedAt||'').localeCompare(a.addedAt||''), name:(a,b)=>a.name.localeCompare(b.name),
+    myrating:(a,b)=>(b.myRating||0)-(a.myRating||0), rating:(a,b)=>(b.rawgRating||0)-(a.rawgRating||0),
+    'hltb-asc':(a,b)=>(a.hltbMain||1e9)-(b.hltbMain||1e9), 'hltb-desc':(a,b)=>(b.hltbMain||0)-(a.hltbMain||0),
+    played:(a,b)=>played(b)-played(a), priority:(a,b)=>(pr[a.priority]??3)-(pr[b.priority]??3)
+  };
+  list.sort(sorters[sort]||sorters.added);
+  const lv = S.settings.libView || 'tiles';
+  $$('#viewTog button').forEach(b => b.classList.toggle('on', b.dataset.lv === lv));
+  $('#libGrid').className = lv === 'tiles' ? 'tiles' : 'grid';
+  $('#libGrid').innerHTML = list.length ? list.map(lv === 'tiles' ? gameTile : gameCard).join('') : `<div class="empty" style="grid-column:1/-1">
+      <div class="big">🎮</div>${S.games.length ? 'No games match these filters.' : 'Your library is empty.<br>Find games to add, or pull in your Steam library.'}
+      ${S.games.length ? '' : `<div class="row" style="justify-content:center;margin-top:12px"><button class="btn pri" onclick="show('discover')">Find games</button><button class="btn" onclick="show('steam')">Connect Steam</button></div>`}</div>`;
+}
+$('#statusChips').addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (b) { libStatus = b.dataset.s; renderLibrary(); } });
+$('#libSearch').addEventListener('input', renderLibrary);
+$('#libGenre').addEventListener('change', renderLibrary);
+$('#libSort').addEventListener('change', renderLibrary);
+$('#viewTog').addEventListener('click', e => { const b = e.target.closest('[data-lv]'); if (b) { S.settings.libView = b.dataset.lv; save(); renderLibrary(); } });
+$('#libGrid').addEventListener('click', e => { const c = e.target.closest('.card,.tile'); if (c) openGame({mode:'lib', id:c.dataset.id}); });
+
+// ---------- discover ----------
+let results = [], nextPage = null, lastQ = '';
+function renderDiscover(){
+  const has = !!S.settings.rawgKey;
+  $('#keyNeeded').classList.toggle('hidden', has);
+  $('#searchUi').classList.toggle('hidden', !has);
+  if (has) setTimeout(()=>$('#q')?.focus(), 50);
+}
+$('#saveKeyInline').onclick = () => { const k = $('#rawgKeyInline').value.trim(); if (!k) return; S.settings.rawgKey = k; save(); toast('RAWG key saved'); renderDiscover(); };
+$('#manualAdd1').onclick = $('#manualAdd2').onclick = e => { e.preventDefault(); openManual(); };
+$('#searchForm').addEventListener('submit', async e => {
+  e.preventDefault(); const q = $('#q').value.trim(); if (!q) return;
+  lastQ = q; results = []; nextPage = 1; $('#results').innerHTML = ''; await loadResults();
+});
+$('#moreBtn').onclick = loadResults;
+async function loadResults(){
+  $('#searchMsg').innerHTML = '<span class="spin"></span> Searching…'; $('#moreBtn').classList.add('hidden');
+  try {
+    const d = await rawg('games', {search:lastQ, page_size:20, page:nextPage, search_precise:true});
+    const items = (d.results||[]).map(fromRawg); results = results.concat(items);
+    nextPage = d.next ? nextPage + 1 : null;
+    $('#searchMsg').textContent = results.length ? `${d.count?.toLocaleString?.() ?? results.length} results · tap one for screenshots and details` : 'No games found. Try a different spelling.';
+    $('#results').insertAdjacentHTML('beforeend', items.map(resultCard).join(''));
+    $('#moreBtn').classList.toggle('hidden', !nextPage);
+  } catch(err) { $('#searchMsg').textContent = err.message; }
+}
+function inLib(x){ return S.games.find(g => (x.rawgId && g.rawgId === x.rawgId) || (x.steamAppId && g.steamAppId === x.steamAppId)); }
+function resultCard(x){
+  const owned = inLib(x);
+  return `<div class="card" data-rid="${x.rawgId}">
+    <div class="cover">${x.cover?`<img loading="lazy" src="${esc(thumb(x.cover))}" alt="">`:'<div class="ph">🎮</div>'}${owned?`<span class="badge s-${owned.status}">${STATUS_NAME[owned.status]}</span>`:''}${x.metacritic?`<span class="mc">${x.metacritic}</span>`:''}</div>
+    <div class="cbody">
+      <div class="ctitle">${esc(x.name)}</div>
+      <div class="cmeta">${x.released?x.released.slice(0,4):'TBA'}${x.genres.length?' · '+x.genres.slice(0,2).map(esc).join(', '):''}</div>
+      <div class="cfoot"><span>${x.rawgRating?`★ ${x.rawgRating.toFixed(2)} <span class="small">(${x.ratingsCount.toLocaleString()})</span>`:'No ratings yet'}</span></div>
+    </div></div>`;
+}
+$('#results').addEventListener('click', e => {
+  const c = e.target.closest('.card'); if (!c) return;
+  const x = results.find(r => r.rawgId == c.dataset.rid); if (!x) return;
+  const owned = inLib(x);
+  openGame(owned ? {mode:'lib', id:owned.id} : {mode:'preview', data:{...x}});
+});
+
+// ---------- modal ----------
+let ctx = null;
+function openModal(html){ $('#sheet').innerHTML = html; $('#modal').classList.add('on'); document.body.classList.add('lock'); $('#sheet').scrollTop = 0; }
+function closeModal(){ $('#modal').classList.remove('on'); document.body.classList.remove('lock'); ctx = null; if (view==='library') renderLibrary(); if (view==='discover') refreshResultBadges(); if (view==='log') renderLog(); if (view==='steam') renderSteam(); }
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { if ($('#lightbox').classList.contains('on')) closeLB(); else if ($('#modal').classList.contains('on')) closeModal(); } if ($('#lightbox').classList.contains('on')) { if (e.key==='ArrowRight') lbGo(1); if (e.key==='ArrowLeft') lbGo(-1); } });
+function refreshResultBadges(){ if (results.length) $('#results').innerHTML = results.map(resultCard).join(''); }
+
+function factsHTML(g){
+  const f = [];
+  f.push(['Released', g.released ? fmtDate(g.released) : 'TBA']);
+  if (g.rawgRating) f.push(['User rating', `★ ${g.rawgRating.toFixed(2)} / 5` + (g.ratingsCount?` <span class="muted small">(${g.ratingsCount.toLocaleString()})</span>`:'')]);
+  if (g.metacritic) f.push(['Metacritic', g.metacritic]);
+  if (g.developers?.length) f.push(['Developer', esc(g.developers.slice(0,2).join(', '))]);
+  if (g.publishers?.length) f.push(['Publisher', esc(g.publishers.slice(0,2).join(', '))]);
+  if (g.esrb) f.push(['ESRB', esc(g.esrb)]);
+  if (g.avgPlaytime) f.push(['Avg. playtime (RAWG)', g.avgPlaytime + ' h']);
+  return `<div class="facts">${f.map(([l,v])=>`<div class="fact"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('')}</div>`;
+}
+function mediaHTML(g){
+  const hero = g.cover ? g.cover : (g.steamAppId ? steamHeader(g.steamAppId) : '');
+  const shots = g.shots||[];
+  return `${hero?`<div class="hero"><img src="${esc(thumb(hero,1280,640))}" alt="" data-lb="-1"></div>`:''}
+    ${shots.length?`<div class="shots">${shots.map((s,i)=>`<img loading="lazy" src="${esc(thumb(s,640,360))}" data-lb="${i}" alt="Screenshot ${i+1}">`).join('')}</div>`:''}`;
+}
+function infoHTML(g, loading){
+  const ratings = (g.ratingsBreakdown||[]).filter(r=>r.pct).map(r=>`${esc(r.title[0].toUpperCase()+r.title.slice(1))} ${Math.round(r.pct)}%`).join(' · ');
+  return `
+    ${g.genres.length?`<div style="margin-top:10px">${g.genres.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>`:''}
+    ${g.platforms.length?`<div class="small muted">${g.platforms.map(esc).join(' · ')}</div>`:''}
+    ${factsHTML(g)}
+    ${ratings?`<div class="small muted" style="margin:-4px 0 10px">Player reviews: ${ratings}</div>`:''}
+    ${loading?'<div class="muted small"><span class="spin"></span> Loading description and screenshots…</div>':''}
+    ${g.description?`<h3>About</h3><div class="desc" id="desc">${esc(g.description)}</div><a href="#" class="small" id="descMore">Show more</a>`:''}
+    ${g.tags?.length?`<div style="margin-top:10px">${g.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:''}
+    <div class="row small" style="margin-top:10px">
+      ${g.slug?`<a href="https://rawg.io/games/${esc(g.slug)}" target="_blank" rel="noopener">RAWG page</a>`:''}
+      ${g.steamAppId?`<a href="https://store.steampowered.com/app/${g.steamAppId}" target="_blank" rel="noopener">Steam store</a>`:''}
+      ${g.website?`<a href="${esc(g.website)}" target="_blank" rel="noopener">Official site</a>`:''}
+    </div>`;
+}
+function hltbHTML(g, editable){
+  return `<div class="hltbbox">
+    <div class="row" style="justify-content:space-between"><b>⏱ HowLongToBeat · Main story</b><a href="${esc(g.hltbUrl||hltbUrl(g.name))}" target="_blank" rel="noopener" class="btn sm">Open on HLTB ↗</a></div>
+    <div class="row" style="margin-top:8px">
+      <input type="number" id="hltbIn" min="0" step="0.5" placeholder="hours" value="${g.hltbMain??''}" ${editable?'':''}>
+      <span class="muted small">hours to beat the main story</span>
+    </div>
+    <div class="small muted" style="margin-top:6px">HLTB doesn't let other sites read its numbers, so tap <b>Open on HLTB</b>, check "Main Story" and type it in.</div>
+  </div>`;
+}
+
+async function openGame(c){
+  ctx = c;
+  if (c.mode === 'preview') renderPreview(true);
+  else renderLib();
+  const g = c.mode === 'preview' ? c.data : byId(c.id);
+  if (g.rawgId && !g.detailed && S.settings.rawgKey) {
+    try {
+      const d = await rawgDetail(g.rawgId);
+      if (ctx !== c) return;
+      if (c.mode === 'preview') { c.data = Object.assign(c.data, d); renderPreview(false); }
+      else { const lg = byId(c.id); if (!lg) return; mergeDetails(lg, d, false); save(); renderLib(); }
+    } catch(err) { if (ctx === c) toast(err.message); }
+  }
+}
+function mergeDetails(lg, d, replaceCover){
+  for (const k of ['rawgId','slug','released','genres','platforms','rawgRating','ratingsCount','metacritic','avgPlaytime','shots','esrb','description','developers','publishers','website','ratingsBreakdown','tags','detailed']) if (d[k] !== undefined && d[k] !== null && d[k] !== '') lg[k] = d[k];
+  if (d.cover && (replaceCover || !lg.cover)) lg.cover = d.cover;
+  if (d.steamAppId && !lg.steamAppId) lg.steamAppId = d.steamAppId;
+}
+
+function renderPreview(loading){
+  const g = ctx.data;
+  openModal(`<div class="shead"><div class="t">${esc(g.name)}</div><button class="iconbtn" data-close>✕</button></div>
+    <div class="sbody">
+      ${mediaHTML(g)}
+      ${infoHTML(g, loading)}
+      ${hltbHTML(g, true)}
+      <label class="f">Add to my library as</label>
+      <div class="seg" id="addAs">
+        <button class="on" data-s="backlog">Backlog</button><button data-s="playing">Playing</button><button data-s="completed">Completed</button><button data-s="hold">On hold</button>
+      </div>
+      <div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn" data-close>Cancel</button><button class="btn pri" id="addBtn">Add game</button></div>
+    </div>`);
+  bindCommon(g);
+  $('#addAs').onclick = e => { const b = e.target.closest('button'); if (!b) return; $$('#addAs button').forEach(x=>x.classList.toggle('on', x===b)); };
+  $('#addBtn').onclick = () => {
+    const status = $('#addAs .on').dataset.s;
+    const h = parseFloat($('#hltbIn').value);
+    const lg = newGame(Object.assign({}, g, {status, hltbMain: isNaN(h)?null:h}));
+    toast(`Added to ${STATUS_NAME[status]}`);
+    ctx = {mode:'lib', id:lg.id}; renderLib();
+  };
+}
+function newGame(d){
+  const g = Object.assign({id:uid(), name:'Untitled', cover:'', genres:[], platforms:[], shots:[], logs:[], status:'backlog', myRating:0, priority:'', hltbMain:null, notes:'', addedAt:new Date().toISOString(), startedAt:'', finishedAt:''}, d);
+  g.id = uid(); g.logs = g.logs||[];
+  if (g.status === 'playing' && !g.startedAt) g.startedAt = todayISO();
+  if (g.status === 'completed' && !g.finishedAt) g.finishedAt = todayISO();
+  S.games.push(g); save(); return g;
+}
+
+function renderLib(){
+  const g = byId(ctx.id); if (!g) return closeModal();
+  const logs = [...g.logs].sort((a,b)=>b.date.localeCompare(a.date));
+  const p = played(g);
+  openModal(`<div class="shead"><div class="t">${esc(g.name)}</div><span class="badge s-${g.status}">${STATUS_NAME[g.status]}</span><button class="iconbtn" data-close>✕</button></div>
+    <div class="sbody">
+      ${mediaHTML(g)}
+      <label class="f">Status</label>
+      <div class="seg" id="stSeg">${STATUSES.map(([k,n])=>`<button data-s="${k}" class="${g.status===k?'on':''}">${n}</button>`).join('')}</div>
+      <div class="two">
+        <div><label class="f">My rating</label><div id="myStars">${starsHTML(g.myRating,'edit')}</div><div class="small muted" id="myRatingTxt">${g.myRating?g.myRating+' / 5 · tap the same star to clear':'Tap the left half of a star for a half'}</div></div>
+        <div><label class="f">Priority</label><div class="seg" id="prSeg">${PRIORITIES.map(([k,n])=>`<button data-p="${k}" class="${g.priority===k?'on':''}">${n}</button>`).join('')}</div></div>
+      </div>
+      ${hltbHTML(g, true)}
+      ${g.hltbMain?`<div class="small muted" style="margin:-4px 0 6px">${fmtH(p)} played of ${fmtH(g.hltbMain)} main story${p?` · ${Math.min(100,Math.round(p/g.hltbMain*100))}%`:''}</div><div class="bar"><i style="width:${Math.min(100,p/g.hltbMain*100)}%"></i></div>`:''}
+      <div class="two">
+        <div><label class="f">Started</label><input type="date" id="fStart" value="${esc(g.startedAt||'')}"></div>
+        <div><label class="f">Finished</label><input type="date" id="fEnd" value="${esc(g.finishedAt||'')}"></div>
+      </div>
+
+      <h3>Play log <span class="muted small">· ${fmtH(p)} total${g.steamMinutes?` (${fmtH(g.steamMinutes/60)} on Steam + ${fmtH(manualHours(g))} logged)`:''}</span></h3>
+      <div class="row">
+        <input type="date" id="pDate" value="${todayISO()}" style="width:150px">
+        <input type="number" id="pHours" min="0" step="0.25" placeholder="Hours" style="width:90px">
+        <input type="text" id="pNote" class="grow" placeholder="Note (optional)" style="min-width:140px">
+        <button class="btn pri" id="pAdd">Log</button>
+      </div>
+      <div class="loglist" style="margin-top:8px">${logs.length?logs.map(l=>`<div class="logitem"><span class="d">${fmtDate(l.date)}</span><span class="h">${fmtH(l.hours)}</span><span class="n">${esc(l.note||'')}${l.source==='steam'?'<span class="src">STEAM</span>':''}</span><button class="x" data-dl="${l.id}" title="Delete">×</button></div>`).join(''):'<div class="small muted">No sessions logged yet.</div>'}</div>
+
+      <label class="f">Notes</label>
+      <textarea id="fNotes" placeholder="Thoughts, where you left off, platform you're playing on…">${esc(g.notes||'')}</textarea>
+
+      <h3>Game info</h3>
+      ${infoHTML(g, false)}
+      <div class="two" style="margin-top:6px">
+        <div><label class="f">Name</label><input type="text" id="fName" value="${esc(g.name)}"></div>
+        <div><label class="f">Genres (comma separated)</label><input type="text" id="fGenres" value="${esc(g.genres.join(', '))}"></div>
+        <div><label class="f">Steam AppID</label><input type="text" id="fSteam" inputmode="numeric" value="${esc(g.steamAppId||'')}" placeholder="Links Steam playtime"></div>
+        <div><label class="f">Cover art link (portrait)</label><input type="text" id="fArt" value="${esc(g.coverArt||'')}" placeholder="${g.steamAppId?'Using Steam box art':'Paste an image link'}"></div>
+        <div class="small muted" style="align-self:end;padding-bottom:6px">Wrong or missing cover? Find box art on <a href="https://www.steamgriddb.com/search/grids?term=${encodeURIComponent(g.name)}" target="_blank" rel="noopener">SteamGridDB</a>, copy the image link and paste it here.</div>
+        <div><label class="f">HLTB page link (optional)</label><input type="text" id="fHltbUrl" value="${esc(g.hltbUrl||'')}" placeholder="Defaults to an HLTB search"></div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        ${S.settings.rawgKey?`<button class="btn" id="findRawg">${g.rawgId?'Re-match on RAWG':'Find details on RAWG'}</button>`:''}
+        <span class="grow"></span>
+        <button class="btn danger" id="delGame">Remove game</button>
+      </div>
+      <div id="rawgPick"></div>
+    </div>`);
+  bindCommon(g);
+  const upd = fn => { fn(); save(); };
+  $('#stSeg').onclick = e => { const b = e.target.closest('button'); if (!b) return; upd(()=>{ g.status = b.dataset.s; if (g.status==='playing' && !g.startedAt) g.startedAt = todayISO(); if (g.status==='completed' && !g.finishedAt) g.finishedAt = todayISO(); }); renderLib(); };
+  $('#prSeg').onclick = e => { const b = e.target.closest('button'); if (!b) return; upd(()=> g.priority = g.priority===b.dataset.p ? '' : b.dataset.p); $$('#prSeg button').forEach(x=>x.classList.toggle('on', x.dataset.p===g.priority)); };
+  $('#myStars').onclick = e => {
+    const st = e.target.closest('.st'); if (!st) return;
+    const r = st.getBoundingClientRect(), n = +st.dataset.n, v = (e.clientX - r.left) < r.width/2 ? n - .5 : n;
+    upd(()=> g.myRating = g.myRating === v ? 0 : v);
+    $('#myStars').innerHTML = starsHTML(g.myRating,'edit');
+    $('#myRatingTxt').textContent = g.myRating ? g.myRating + ' / 5 · tap the same star to clear' : 'Tap the left half of a star for a half';
+  };
+  $('#hltbIn').onchange = e => { const h = parseFloat(e.target.value); upd(()=> g.hltbMain = isNaN(h) ? null : h); renderLib(); };
+  $('#fStart').onchange = e => upd(()=> g.startedAt = e.target.value);
+  $('#fEnd').onchange = e => upd(()=> g.finishedAt = e.target.value);
+  $('#fNotes').onchange = e => upd(()=> g.notes = e.target.value);
+  $('#fName').onchange = e => { const v = e.target.value.trim(); if (v) upd(()=> g.name = v); };
+  $('#fGenres').onchange = e => upd(()=> g.genres = e.target.value.split(',').map(s=>s.trim()).filter(Boolean));
+  $('#fSteam').onchange = e => { const v = parseInt(e.target.value); upd(()=> { g.steamAppId = isNaN(v) ? null : v; const o = (S.steam.owned||[]).find(x=>x.appid===g.steamAppId); if (o) g.steamMinutes = o.min; }); };
+  $('#fArt').onchange = e => upd(()=> g.coverArt = e.target.value.trim());
+  $('#fHltbUrl').onchange = e => upd(()=> g.hltbUrl = e.target.value.trim());
+  $('#pAdd').onclick = () => {
+    const h = parseFloat($('#pHours').value); if (isNaN(h) || h <= 0) { toast('Enter the hours played'); return; }
+    upd(()=> { g.logs.push({id:uid(), date:$('#pDate').value||todayISO(), hours:h, note:$('#pNote').value.trim(), source:'manual'}); if (g.status==='backlog') { g.status='playing'; if (!g.startedAt) g.startedAt = $('#pDate').value||todayISO(); } });
+    toast('Session logged'); renderLib();
+  };
+  $$('[data-dl]').forEach(b => b.onclick = () => { upd(()=> g.logs = g.logs.filter(l=>l.id!==b.dataset.dl)); renderLib(); });
+  $('#delGame').onclick = () => { if (!confirm(`Remove "${g.name}" and its play log?`)) return; S.games = S.games.filter(x=>x!==g); save(); toast('Removed'); closeModal(); };
+  const fr = $('#findRawg'); if (fr) fr.onclick = async () => {
+    const box = $('#rawgPick'); box.innerHTML = '<div class="small muted" style="margin-top:8px"><span class="spin"></span> Searching RAWG…</div>';
+    try {
+      const d = await rawg('games', {search:g.name, page_size:6});
+      const items = (d.results||[]).map(fromRawg);
+      box.innerHTML = items.length ? `<div class="small muted" style="margin-top:10px">Pick the matching game:</div><div class="picklist">${items.map((x,i)=>`<button class="pick" data-i="${i}">${x.cover?`<img src="${esc(thumb(x.cover,200,112))}" alt="">`:''}<span><b>${esc(x.name)}</b><br><span class="small muted">${x.released?x.released.slice(0,4):'TBA'} · ${esc(x.genres.slice(0,2).join(', '))}</span></span></button>`).join('')}</div>` : '<div class="small muted">No matches found.</div>';
+      $$('.pick', box).forEach(b => b.onclick = async () => {
+        b.innerHTML += ' <span class="spin"></span>';
+        try { const det = await rawgDetail(items[+b.dataset.i].rawgId); mergeDetails(g, det, !g.steamAppId || !g.cover); save(); toast('Details added'); renderLib(); } catch(err) { toast(err.message); }
+      });
+    } catch(err) { box.innerHTML = `<div class="small muted">${esc(err.message)}</div>`; }
+  };
+}
+function bindCommon(g){
+  $$('[data-close]').forEach(b => b.onclick = closeModal);
+  const dm = $('#descMore'); if (dm) dm.onclick = e => { e.preventDefault(); const d = $('#desc'); d.classList.toggle('open'); dm.textContent = d.classList.contains('open') ? 'Show less' : 'Show more'; };
+  const imgs = [g.cover || (g.steamAppId ? steamHeader(g.steamAppId) : ''), ...(g.shots||[])].filter(Boolean);
+  $$('[data-lb]', $('#sheet')).forEach(im => im.onclick = () => openLB(imgs, g.cover||g.steamAppId ? +im.dataset.lb + 1 : +im.dataset.lb));
+}
+function openManual(){
+  ctx = {mode:'manual'};
+  openModal(`<div class="shead"><div class="t">Add a game by hand</div><button class="iconbtn" data-close>✕</button></div>
+    <div class="sbody">
+      <label class="f">Name</label><input type="text" id="mName" placeholder="Game title">
+      <div class="two">
+        <div><label class="f">Genres (comma separated)</label><input type="text" id="mGenres" placeholder="RPG, Action"></div>
+        <div><label class="f">Platform</label><input type="text" id="mPlat" placeholder="PC, Switch…"></div>
+        <div><label class="f">Cover art link (optional)</label><input type="text" id="mCover" placeholder="https://…"></div>
+        <div><label class="f">Steam AppID (optional)</label><input type="text" id="mSteam" inputmode="numeric"></div>
+      </div>
+      <div class="hltbbox"><div class="row" style="justify-content:space-between"><b>⏱ Main story hours</b><a href="#" id="mHltbLink" class="btn sm" target="_blank" rel="noopener">Open on HLTB ↗</a></div>
+        <div class="row" style="margin-top:8px"><input type="number" id="mHltb" min="0" step="0.5" placeholder="hours"></div></div>
+      <label class="f">Add as</label>
+      <div class="seg" id="mAs"><button class="on" data-s="backlog">Backlog</button><button data-s="playing">Playing</button><button data-s="completed">Completed</button><button data-s="hold">On hold</button></div>
+      <div class="row" style="justify-content:flex-end;margin-top:14px"><button class="btn" data-close>Cancel</button><button class="btn pri" id="mAdd">Add game</button></div>
+    </div>`);
+  $$('[data-close]').forEach(b => b.onclick = closeModal);
+  $('#mHltbLink').onclick = e => { const n = $('#mName').value.trim(); if (!n) { e.preventDefault(); toast('Type the name first'); return; } e.currentTarget.href = hltbUrl(n); };
+  $('#mAs').onclick = e => { const b = e.target.closest('button'); if (!b) return; $$('#mAs button').forEach(x=>x.classList.toggle('on', x===b)); };
+  $('#mAdd').onclick = () => {
+    const name = $('#mName').value.trim(); if (!name) { toast('Enter a name'); return; }
+    const h = parseFloat($('#mHltb').value), sid = parseInt($('#mSteam').value);
+    const g = newGame({name, genres:$('#mGenres').value.split(',').map(s=>s.trim()).filter(Boolean), platforms:$('#mPlat').value.split(',').map(s=>s.trim()).filter(Boolean),
+      coverArt:$('#mCover').value.trim(), steamAppId:isNaN(sid)?null:sid, hltbMain:isNaN(h)?null:h, status:$('#mAs .on').dataset.s});
+    toast('Game added'); ctx = {mode:'lib', id:g.id}; renderLib();
+  };
+  setTimeout(()=>$('#mName')?.focus(), 50);
+}
+
+// ---------- lightbox ----------
+let lb = {imgs:[], i:0};
+function openLB(imgs, i){ lb = {imgs, i:Math.max(0,i)}; $('#lightbox').classList.add('on'); lbGo(0); }
+function lbGo(d){ lb.i = (lb.i + d + lb.imgs.length) % lb.imgs.length; $('#lightbox img').src = lb.imgs[lb.i]; $('#lightbox .cnt').textContent = `${lb.i+1} / ${lb.imgs.length}`; $$('#lightbox .nav').forEach(b=>b.style.display = lb.imgs.length>1?'':'none'); }
+function closeLB(){ $('#lightbox').classList.remove('on'); $('#lightbox img').src=''; }
+$('#lightbox .close').onclick = closeLB;
+$('#lightbox .prev').onclick = e => { e.stopPropagation(); lbGo(-1); };
+$('#lightbox .next').onclick = e => { e.stopPropagation(); lbGo(1); };
+$('#lightbox').onclick = e => { if (e.target.id === 'lightbox' || e.target.tagName === 'IMG') closeLB(); };
+let tx = null; $('#lightbox').addEventListener('touchstart', e => tx = e.touches[0].clientX, {passive:true});
+$('#lightbox').addEventListener('touchend', e => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) lbGo(dx < 0 ? 1 : -1); tx = null; });
+
+// ---------- play log ----------
+function allLogs(){ return S.games.flatMap(g => g.logs.map(l => ({...l, game:g}))).sort((a,b)=>b.date.localeCompare(a.date) || 0); }
+function renderLog(){
+  const logs = allLogs(), now = new Date();
+  const wk = new Date(now); wk.setDate(now.getDate() - 6); const wkS = iso(wk);
+  const mo = todayISO().slice(0,7), yr = todayISO().slice(0,4);
+  const sum = f => logs.filter(f).reduce((a,l)=>a+(+l.hours||0),0);
+  $('#logSummary').innerHTML = `
+    <div class="stat"><div class="v">${fmtH(sum(l=>l.date>=wkS))}</div><div class="l">last 7 days</div></div>
+    <div class="stat"><div class="v">${fmtH(sum(l=>l.date.startsWith(mo)))}</div><div class="l">this month</div></div>
+    <div class="stat"><div class="v">${fmtH(sum(l=>l.date.startsWith(yr)))}</div><div class="l">in ${yr}</div></div>
+    <div class="stat"><div class="v">${logs.length}</div><div class="l">sessions logged</div></div>`;
+  const opts = [...S.games].sort((a,b)=> (a.status==='playing'?0:1)-(b.status==='playing'?0:1) || a.name.localeCompare(b.name));
+  const cur = $('#lgGame').value;
+  $('#lgGame').innerHTML = opts.length ? opts.map(g=>`<option value="${g.id}" ${g.id===cur?'selected':''}>${esc(g.name)}${g.status==='playing'?' (playing)':''}</option>`).join('') : '<option value="">Add a game first</option>';
+  if (!$('#lgDate').value) $('#lgDate').value = todayISO();
+  if (!logs.length) { $('#logList').innerHTML = '<div class="empty"><div class="big">📓</div>No play sessions yet. Log one above, or sync Steam to fill this in automatically.</div>'; return; }
+  let h = '', lastM = '';
+  for (const l of logs.slice(0, 400)) {
+    const m = l.date.slice(0,7);
+    if (m !== lastM) { const mt = logs.filter(x=>x.date.startsWith(m)).reduce((a,x)=>a+(+x.hours||0),0); h += `${lastM?'</div>':''}<div class="month">${new Date(m+'-15').toLocaleDateString(undefined,{month:'long',year:'numeric'})} · ${fmtH(mt)}</div><div class="loglist">`; lastM = m; }
+    h += `<div class="logitem" style="cursor:pointer" data-g="${l.game.id}"><span class="d">${fmtDate(l.date)}</span><span class="h">${fmtH(l.hours)}</span><span class="n"><b>${esc(l.game.name)}</b>${l.note?' — '+esc(l.note):''}${l.source==='steam'?'<span class="src">STEAM</span>':''}</span></div>`;
+  }
+  $('#logList').innerHTML = h + '</div>';
+}
+$('#logList').addEventListener('click', e => { const it = e.target.closest('[data-g]'); if (it) openGame({mode:'lib', id:it.dataset.g}); });
+$('#lgAdd').onclick = () => {
+  const g = byId($('#lgGame').value); if (!g) { toast('Add a game to your library first'); return; }
+  const h = parseFloat($('#lgHours').value); if (isNaN(h) || h <= 0) { toast('Enter the hours played'); return; }
+  const date = $('#lgDate').value || todayISO();
+  g.logs.push({id:uid(), date, hours:h, note:$('#lgNote').value.trim(), source:'manual'});
+  if (g.status === 'backlog') { g.status = 'playing'; if (!g.startedAt) g.startedAt = date; }
+  save(); $('#lgHours').value = ''; $('#lgNote').value = ''; toast(`Logged ${fmtH(h)} of ${g.name}`); renderLog();
+};
+
+// ---------- steam ----------
+function steamUrl(){
+  return `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${encodeURIComponent(S.settings.steamKey)}&steamid=${encodeURIComponent(S.settings.steamId)}&include_appinfo=1&include_played_free_games=1&format=json`;
+}
+function proxied(u){ const p = S.settings.proxy.trim(); if (!p) return u; return p.includes('{url}') ? p.replace('{url}', encodeURIComponent(u)) : p + u; }
+function readSteamFields(){ S.settings.steamKey = $('#stKey').value.trim(); S.settings.steamId = $('#stId').value.trim(); S.settings.proxy = $('#stProxy').value.trim(); save(); }
+function steamReady(){ if (!S.settings.steamKey || !/^\d{17}$/.test(S.settings.steamId)) { toast('Enter your Steam API key and 17-digit SteamID64'); return false; } return true; }
+['#stKey','#stId','#stProxy'].forEach(s => $(s).addEventListener('change', readSteamFields));
+$('#stSync').onclick = async () => {
+  readSteamFields(); if (!steamReady()) return;
+  const btn = $('#stSync'); btn.disabled = true; btn.innerHTML = '<span class="spin"></span> Syncing…';
+  try {
+    const r = await fetch(proxied(steamUrl()));
+    if (r.status === 401 || r.status === 403) throw new Error('Steam rejected the API key.');
+    if (!r.ok) throw new Error('Steam error ' + r.status);
+    processSteam(await r.json());
+    $('#stManual').classList.add('hidden');
+  } catch(err) {
+    $('#stManual').classList.remove('hidden');
+    $('#stResult').innerHTML = `<div class="note warn">${S.settings.proxy ? esc(err.message) + ' Check the proxy address, or use the two-step method.' : "Steam blocks direct requests from web pages, so use the two-step method below (or add a proxy)."}</div>`;
+  } finally { btn.disabled = false; btn.textContent = 'Sync now'; }
+};
+$('#stOpen').onclick = () => { readSteamFields(); if (steamReady()) window.open(steamUrl(), '_blank', 'noopener'); };
+$('#stRead').onclick = () => {
+  let d; try { d = JSON.parse($('#stPaste').value.trim()); } catch(e) { toast("That doesn't look like the Steam data. Copy the whole page."); return; }
+  try { processSteam(d); $('#stPaste').value = ''; $('#stManual').classList.add('hidden'); } catch(err) { toast(err.message, 4000); }
+};
+function processSteam(d){
+  const games = d?.response?.games;
+  if (!games) { if (d?.response && !d.response.game_count) throw new Error("Steam returned no games. In Steam's privacy settings, set Game details to Public."); throw new Error("That isn't the Steam owned-games data."); }
+  const snap = S.steam.snapshot || {}, first = !S.steam.lastSync;
+  let linked = 0, sessions = 0, moved = 0, hrs = 0;
+  S.steam.owned = games.map(g => ({appid:g.appid, name:g.name, min:g.playtime_forever||0, min2w:g.playtime_2weeks||0, last:g.rtime_last_played||0}));
+  for (const o of S.steam.owned) {
+    const lg = S.games.find(x => x.steamAppId === o.appid) || S.games.find(x => !x.steamAppId && norm(x.name) === norm(o.name));
+    if (lg) {
+      if (!lg.steamAppId) lg.steamAppId = o.appid;
+      const prev = snap[o.appid] ?? lg.steamMinutes;
+      if (prev != null && o.min > prev) {
+        const h = Math.round((o.min - prev) / 60 * 100) / 100;
+        lg.logs.push({id:uid(), date: o.last ? iso(o.last*1000) : todayISO(), hours:h, note:'Steam playtime', source:'steam'});
+        sessions++; hrs += h;
+        if (lg.status === 'backlog' || lg.status === 'hold') { lg.status = 'playing'; moved++; if (!lg.startedAt) lg.startedAt = o.last ? iso(o.last*1000) : todayISO(); }
+      }
+      lg.steamMinutes = o.min; linked++;
+    }
+    snap[o.appid] = o.min;
+  }
+  S.steam.snapshot = snap; S.steam.lastSync = new Date().toISOString(); save();
+  $('#stResult').innerHTML = `<div class="note">Synced ${games.length} Steam games. ${linked} are linked to your library.${first ? ' This first sync sets the starting point; new playtime from now on goes into your play log.' : sessions ? ` Added ${sessions} session${sessions>1?'s':''} (${fmtH(hrs)}) to your play log${moved?`, and moved ${moved} game${moved>1?'s':''} to Playing`:''}.` : ' No new playtime since the last sync.'}</div>`;
+  renderSteam(true);
+}
+function renderSteam(keepResult){
+  $('#stKey').value = S.settings.steamKey; $('#stId').value = S.settings.steamId; $('#stProxy').value = S.settings.proxy;
+  $('#stLast').textContent = S.steam.lastSync ? 'Last synced ' + new Date(S.steam.lastSync).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}) : 'Never synced';
+  if (!keepResult) $('#stResult').innerHTML = '';
+  const owned = S.steam.owned || [];
+  const recent = owned.filter(o=>o.min2w>0).sort((a,b)=>b.min2w-a.min2w);
+  $('#stRecentWrap').classList.toggle('hidden', !recent.length);
+  $('#stRecent').innerHTML = recent.map(o => { const lg = S.games.find(g=>g.steamAppId===o.appid); return `<div class="steamrow"><img loading="lazy" src="${steamHeader(o.appid)}" alt="" onerror="this.style.visibility='hidden'"><span class="nm">${esc(o.name)}</span><span class="small muted">${fmtH(o.min2w/60)} · ${fmtH(o.min/60)} total</span>${lg?`<button class="btn sm" data-open="${lg.id}">Open</button>`:`<button class="btn sm" data-addp="${o.appid}">Add</button>`}</div>`; }).join('');
+  renderOwned();
+  const need = S.games.filter(g=>!g.rawgId).length;
+  $('#stFillWrap').classList.toggle('hidden', !need);
+  $('#stFillMsg').textContent = need ? `${need} game${need>1?'s':''} without details${S.settings.rawgKey?'':' · add a RAWG key in Find games first'}` : '';
+}
+function renderOwned(){
+  const owned = (S.steam.owned||[]).filter(o => !S.games.some(g=>g.steamAppId===o.appid));
+  $('#stOwnedWrap').classList.toggle('hidden', !(S.steam.owned||[]).length);
+  const q = norm($('#stFilter').value), mode = $('#stShow').value;
+  const list = owned.filter(o => (!q||norm(o.name).includes(q)) && (mode==='all' || (mode==='unplayed' ? !o.min : o.min>0))).sort((a,b)=>a.name.localeCompare(b.name));
+  $('#stCount').textContent = `${list.length} shown · ${owned.length} not in library`;
+  $('#stAll').checked = false;
+  $('#stOwned').innerHTML = list.length ? list.map(o=>`<label class="steamrow"><input type="checkbox" value="${o.appid}"><img loading="lazy" src="${steamHeader(o.appid)}" alt="" onerror="this.style.visibility='hidden'"><span class="nm">${esc(o.name)}</span><span class="small muted">${o.min?fmtH(o.min/60):'Never played'}</span></label>`).join('') : '<div class="small muted" style="padding:10px">Nothing to show.</div>';
+}
+$('#stFilter').addEventListener('input', renderOwned);
+$('#stShow').addEventListener('change', renderOwned);
+$('#stAll').onchange = e => $$('#stOwned input[type=checkbox]').forEach(c => c.checked = e.target.checked);
+function addFromSteam(o, status){
+  return newGame({name:o.name, steamAppId:o.appid, steamMinutes:o.min, status, startedAt: status!=='backlog' && o.last ? iso(o.last*1000) : ''});
+}
+$('#stImport').onclick = () => {
+  const ids = $$('#stOwned input:checked').map(c=>+c.value); if (!ids.length) { toast('Select some games first'); return; }
+  const status = $('#stImportAs').value;
+  ids.forEach(id => { const o = S.steam.owned.find(x=>x.appid===id); if (o) addFromSteam(o, status); });
+  toast(`Added ${ids.length} game${ids.length>1?'s':''} to ${STATUS_NAME[status]}`); renderSteam();
+};
+$('#stRecent').addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) return openGame({mode:'lib', id:o.dataset.open});
+  const a = e.target.closest('[data-addp]'); if (a) { const og = S.steam.owned.find(x=>x.appid===+a.dataset.addp); if (og) { addFromSteam(og, 'playing'); toast('Added to Playing'); renderSteam(); } }
+});
+$('#stFill').onclick = async () => {
+  if (!S.settings.rawgKey) { toast('Add your RAWG key in Find games first'); show('discover'); return; }
+  const todo = S.games.filter(g=>!g.rawgId), btn = $('#stFill'); btn.disabled = true;
+  let ok = 0, miss = [];
+  for (let i=0; i<todo.length; i++) {
+    const g = todo[i]; $('#stFillMsg').innerHTML = `<span class="spin"></span> ${i+1} of ${todo.length}: ${esc(g.name)}`;
+    try {
+      const d = await rawg('games', {search:g.name, page_size:5});
+      const hit = (d.results||[]).find(x => norm(x.name) === norm(g.name));
+      if (hit) { const det = await rawgDetail(hit.id); mergeDetails(g, det, !g.cover); ok++; save(); } else miss.push(g.name);
+    } catch(err) { $('#stFillMsg').textContent = err.message; btn.disabled = false; return; }
+  }
+  btn.disabled = false;
+  $('#stFillMsg').textContent = `Filled in ${ok}.` + (miss.length ? ` ${miss.length} had no exact match; open those and use "Find details on RAWG".` : '');
+  renderLibrary();
+};
+
+// ---------- settings / backup ----------
+$('#settingsBtn').onclick = () => {
+  ctx = {mode:'settings'};
+  openModal(`<div class="shead"><div class="t">Settings &amp; backup</div><button class="iconbtn" data-close>✕</button></div>
+    <div class="sbody">
+      <label class="f">RAWG API key</label>
+      <div class="row"><input type="text" id="setRawg" class="grow" value="${esc(S.settings.rawgKey)}" placeholder="From rawg.io/apidocs"><button class="btn" id="setRawgSave">Save</button></div>
+      <p class="small muted">Used for game search, user ratings, genres, descriptions and screenshots. Steam settings are on the Steam tab.</p>
+      <h3>Backup</h3>
+      <div class="row"><button class="btn" id="expBtn">Back up (download)</button><button class="btn" id="impBtn">Import backup</button><input type="file" id="impFile" accept=".json,application/json" class="hidden"></div>
+      <p class="small muted">The backup includes your library, ratings, play log and settings (including your API keys).</p>
+      <h3>Danger zone</h3>
+      <button class="btn danger" id="wipeBtn">Erase everything</button>
+      <div class="appinfo">${APP_NAME} · ${APP_VERSION} · by ${APP_BY}<br>${S.games.length} games · ${allLogs().length} sessions</div>
+    </div>`);
+  $$('[data-close]').forEach(b => b.onclick = closeModal);
+  $('#setRawgSave').onclick = () => { S.settings.rawgKey = $('#setRawg').value.trim(); save(); toast('Saved'); };
+  $('#expBtn').onclick = () => {
+    const blob = new Blob([JSON.stringify({app:APP_NAME, version:APP_VERSION, exported:new Date().toISOString(), data:S}, null, 2)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${FILE_BASE}-backup-${todayISO()}.json`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  };
+  $('#impBtn').onclick = () => $('#impFile').click();
+  $('#impFile').onchange = async e => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      let o = JSON.parse(await f.text());
+      if (o && typeof o[KEY] === 'string') o = JSON.parse(o[KEY]);   // PageVault "Export my data" file
+      if (o && o.data && Array.isArray(o.data.games)) o = o.data;
+      if (!o || !Array.isArray(o.games)) throw new Error('Not a backlog backup');
+      if (!confirm(`Replace your current data with this backup (${o.games.length} games)?`)) return;
+      S = fix(o); save(); toast('Backup restored'); closeModal(); show('library');
+    } catch(err) { toast("Couldn't read that file: " + err.message, 4000); }
+  };
+  $('#wipeBtn').onclick = () => { if (!confirm('Erase all games, ratings, logs and settings? Download a backup first if you might want them.')) return; S = blank(); save(); toast('Erased'); closeModal(); show('library'); };
+};
+
+// ---------- boot ----------
+$('#logo').innerHTML = LOGO;
+$('#favicon').href = 'data:image/svg+xml,' + encodeURIComponent(LOGO);
+$('#appVer').textContent = APP_VERSION;
+$('#appInfo').textContent = `${APP_NAME} · ${APP_VERSION} · by ${APP_BY}`;
+renderLibrary();
+</script>
+</body>
+</html>
