@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--14%20mk1-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--14%20mk2-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -36,7 +36,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Play log with start and finish dates.** Log when you started and finished each game, with optional hours and notes. See a **calendar** of what you played each day, and a counter of games played and finished this year, with your goal.
 - **Year in review.** Games played and finished, hours, longest streak, favorite, most played, quickest finish, longest journey, month by month, and every game's start-to-finish timeline. A banner announces it each December.
 - **Import your backlog.** Paste a list of games, or import a game-list file (for example, a Backloggd backlog). Games you already have are skipped, and RAWG can fill in covers and ratings afterwards.
-- **Steam (optional).** Pull in your Steam library and playtime with your own Steam Web API key.
+- **Steam playtime (optional).** Add your Steam Web API key and SteamID64. In PageVault, your playtime syncs automatically every time you open the tracker (at most every 30 minutes): new hours go into your play log, and games you've started move to Playing. Opened on its own, use **Sync now** with a proxy or the two-step copy-and-paste.
 - **Backup and restore,** with a reminder when you haven't backed up in a week (outside PageVault).
 
 ## Screenshots
@@ -76,6 +76,7 @@ Every release is a new file named with the release date. The first release of a 
 
 | Version | Notes |
 |---|---|
+| **2026-11-14 mk2** | Automatic Steam playtime sync in PageVault, through PageVault's new relay (needs PageVault 2026-11-14 mk1 or later). Game search and RAWG lookups also go through the relay in PageVault, so they work in Brave on iPhone. |
 | **2026-11-14 mk1** | Phones: the game window fills the screen with the close button always visible (it was hidden behind the browser bar in Brave), and the phone's Back button or swipe closes it. Text boxes no longer zoom the page on iPhone. Tile badges moved to the top so they don't cover the box art; on phones the status is a colored dot, matching the dots on the filter buttons. |
 | **2026-11-14** | Tiles show the player rating and your excitement icon (🔥 ✨ 🌙). New sorts: release date (newest/oldest) and excitement in both directions. Sharper cover art (Steam 2× box art, full-width RAWG art). Better RAWG matching for names with accents, years or editions, plus **Settings → Find art & details** for games still missing art. |
 | **2026-11-13 mk4** | PageVault ready: *Saved to your server* / *Saved on this device only* badge, a 7-day backup reminder outside PageVault, and backup status in Settings. Fixed screenshots and header pictures that didn't load (they now use sizes RAWG actually serves, and fall back to the full-size image). |
