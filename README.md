@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk9-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk10-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -45,7 +45,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Retro handheld playtime (optional).** Cocoon's backups include every play session. Make a backup in Cocoon and import it in the **Sync** tab. Only new sessions are added, so importing the same backup again is safe.
 - **Steam playtime (optional).** Add your Steam Web API key and SteamID64. In PageVault, your playtime syncs automatically every time you open the tracker (at most every 30 minutes): new hours go into your play log, and games you've started move to Playing. Opened on its own, add a CORS proxy and it syncs automatically the same way, or use **Sync now** with the two-step copy-and-paste.
 - **Day or Dark.** Choose Day, Dark or Auto (follows your device) in Settings.
-- **Backup and restore,** with a reminder when you haven't backed up in a week (outside PageVault).
+- **Backup and restore,** with a reminder when you haven't backed up in a week (outside PageVault). With uploaded pictures the backup is a .zip that includes them, and even a library of hundreds of games with custom covers backs up in seconds, including on phones.
 - **Download app + data.** In **Settings**, one click downloads a .zip with this version of the app, a backup of your data, and a short note on how to restore it. Open the HTML anywhere and restore the backup to pick up where you left off. In PageVault it's the exact file that's installed.
 
 ## Importing from Backloggd
@@ -146,11 +146,11 @@ This Worker only passes along Steam and SteamGridDB requests, so nobody can use 
 | **PageVault** | Your own server only, separately for each signed-in person. Nothing is kept in the browser. No backup reminders. | *Saved to your server* |
 | **A local file or the web link** | This browser only, in the browser's large storage (your library and your uploaded pictures), with room for years of data. The app asks the browser to keep its data rather than clear it to free up space. Use **Settings → Back up** to keep a copy; a reminder appears after 7 days without one. | *Saved on this device only* |
 
-Backups include your uploaded pictures and your API keys. Moving between the two: back up on one side and **Import backup** on the other.
+Backups include your uploaded pictures and your API keys. With uploaded pictures the backup is a .zip (your data plus each picture as an image file); without them it's a .json file. Older .json backups still restore. Moving between the two: back up on one side and **Import backup** on the other.
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk9.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk10.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk10** | **Backups for big libraries.** With uploaded pictures, **Back up** now makes a .zip with your data and each picture as an image file, instead of one large text file. Tested with 600 games and 600 custom covers: the backup is a quarter smaller (124 MB), takes about 4 seconds, uses a fraction of the memory (peak about 70 MB instead of 330 MB) and restores in about 2 seconds, so it's safe on phones. **Download app + data** uses the same backup. Backups made in PageVault now include the covers stored on your server, and restore on their own or into PageVault. Older .json backups still restore. |
 | **2026-11-16 mk9** | Clearer Backloggd import steps in the app and a new **Importing from Backloggd** section in this README: sign in, find the Data section the extension adds, and export as JSON to include play sessions. |
 | **2026-11-16 mk8** | **Import from Backloggd.** Choose the CSV or JSON file from the free Backloggd+ extension and your games come over with their status, rating, start and finish dates, hours, play sessions (JSON) and review. Played games come in as Completed, and ratings teach Up next what you like. Optionally bring your wishlist as 🌙 Someday. Games already in your library are skipped. Imported sessions are tagged **BACKLOGGD** in the play log. |
 | **2026-11-16 mk7** | **Room to grow.** Opened on its own, the app now keeps its data in the browser's large storage (IndexedDB) instead of the small save area (about 5 MB, shared with every page on the same site), so a big history never runs out of room. Your data moves over automatically the first time you open this version. The app asks the browser to keep its data, and says so plainly if the browser ever can't save. In PageVault nothing changes. (An older copy of the file opened afterwards won't see data saved by this version, so use this one or newer.) |
