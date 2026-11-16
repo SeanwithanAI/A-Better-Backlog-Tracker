@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk2-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk3-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -27,7 +27,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 
 - **Find games before you add them.** Search the free **RAWG** game database and see screenshots, player ratings, Metacritic score, genres, platforms, developer and a description first.
 - **Cover-art library.** Sharp box-art tiles (Steam box art when available) showing status, how excited you are (🔥 ✨ 🌙), the player rating, main-story time, hours played and a progress bar. Switch to detail cards any time. Filter by status or genre, and sort by rating, length, time played, release date, or excitement (most → least or least → most).
-- **Real box art.** With a free SteamGridDB key, the tracker fills in proper box art (not screenshots), through PageVault. It only fills covers you haven't set yourself: paste a SteamGridDB link or upload your own and it's left alone; clear it and automatic art comes back.
+- **Real box art.** With a free SteamGridDB key, the tracker fills in proper box art (not screenshots). It's automatic in PageVault or with a CORS proxy; opened on its own, use **Browse SteamGridDB** on a game and **Upload cover**. Steam games also get Steam's own cover art without any key. It only fills covers you haven't set yourself: paste a SteamGridDB link or upload your own and it's left alone; clear it and automatic art comes back.
 - **Upload your own pictures.** Add your own cover (portrait 600 × 900, 2:3) and screenshots (landscape 1920 × 1080, 16:9) to any game. In PageVault they're saved on your server.
 - **HowLongToBeat times.** Every game links to HowLongToBeat and keeps its main-story hours. Estimated times are marked **≈** until you confirm them.
 - **How excited are you?** *🔥 Can't wait*, *✨ Interested* or *🌙 Someday*, each explained, so the backlog sorts itself.
@@ -39,7 +39,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Year in review.** Games played and finished, hours, longest streak, favorite, most played, quickest finish, longest journey, month by month, and every game's start-to-finish timeline. A banner announces it each December.
 - **Import your backlog.** Paste a list of games, or import a game-list file (for example, a Backloggd backlog). Games you already have are skipped, and RAWG can fill in covers and ratings afterwards.
 - **Retro handheld playtime (optional).** Cocoon's backups include every play session. Make a backup in Cocoon and import it in the **Sync** tab. Only new sessions are added, so importing the same backup again is safe.
-- **Steam playtime (optional).** Add your Steam Web API key and SteamID64. In PageVault, your playtime syncs automatically every time you open the tracker (at most every 30 minutes): new hours go into your play log, and games you've started move to Playing. Opened on its own, use **Sync now** with a proxy or the two-step copy-and-paste.
+- **Steam playtime (optional).** Add your Steam Web API key and SteamID64. In PageVault, your playtime syncs automatically every time you open the tracker (at most every 30 minutes): new hours go into your play log, and games you've started move to Playing. Opened on its own, add a CORS proxy and it syncs automatically the same way, or use **Sync now** with the two-step copy-and-paste.
 - **Day or Dark.** Choose Day, Dark or Auto (follows your device) in Settings.
 - **Backup and restore,** with a reminder when you haven't backed up in a week (outside PageVault).
 - **Download app + data.** In **Settings**, one click downloads a .zip with this version of the app, a backup of your data, and a short note on how to restore it. Open the HTML anywhere and restore the backup to pick up where you left off. In PageVault it's the exact file that's installed.
@@ -103,6 +103,7 @@ Every release is a new file named with the release date. The first release of a 
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk3** | Works fully without PageVault: with a CORS proxy (Sync tab), Steam playtime syncs on its own and SteamGridDB box art fills in, the same as in PageVault. Without a proxy, Sync now with the two-step method and Browse SteamGridDB + Upload cover still work. |
 | **2026-11-16 mk2** | The preview now says plainly that, because of iOS, an HTML file saved on an iPhone or iPad can't be opened in Safari, and points to PageVault instead. |
 | **2026-11-16 mk1** | The preview shown when the file can't run (like in the iPhone Files app) now explains how to open it on a computer, Android, iPhone and iPad. |
 | **2026-11-16** | Cocoon playtime is labeled **Retro handheld** (log tag **RETRO**); notes on sessions you already imported are relabeled when you open the tracker. |
