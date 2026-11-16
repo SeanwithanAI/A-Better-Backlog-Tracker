@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk3-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk4-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -88,6 +88,37 @@ The app is one self-contained `.html` file: no install, no account, nothing else
 
 **Moving to another device:** download a backup in the app, open the same version on the new device, and restore the backup there. With PageVault there's nothing to move.
 
+## Getting a proxy (only for the file on its own)
+
+Steam and SteamGridDB don't answer web pages directly. In PageVault this is handled for you. Opened as a file, the tracker can use a small proxy for automatic Steam sync and box art. These steps are also in the app, under **Sync → How to get a proxy**.
+
+**Free option: your own Cloudflare Worker (about 5 minutes)**
+1. Sign up for free at [cloudflare.com](https://dash.cloudflare.com/sign-up).
+2. Go to **Workers & Pages**, tap **Create**, start from the **Hello World** template, and tap **Deploy**.
+3. Tap **Edit code**, replace everything with the code below, then tap **Deploy**.
+4. Copy your Worker's address (it ends in `workers.dev`), add `/?url={url}` to the end, and paste it in **Sync → CORS proxy**. Example: `https://backlog-proxy.yourname.workers.dev/?url={url}`
+
+```js
+// A Better Backlog Tracker: tiny proxy for Steam and SteamGridDB (Cloudflare Worker)
+export default {
+  async fetch(req) {
+    const cors = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Authorization', 'Access-Control-Allow-Methods': 'GET, OPTIONS'};
+    if (req.method === 'OPTIONS') return new Response(null, {headers: cors});
+    const url = new URL(req.url).searchParams.get('url') || '';
+    if (!/^https:\/\/(api\.steampowered\.com|www\.steamgriddb\.com)\//.test(url)) return new Response('Only Steam and SteamGridDB addresses are allowed.', {status: 403, headers: cors});
+    const auth = req.headers.get('Authorization');
+    const r = await fetch(url, {headers: auth ? {Authorization: auth} : {}});
+    const headers = new Headers(r.headers);
+    for (const [k, v] of Object.entries(cors)) headers.set(k, v);
+    return new Response(r.body, {status: r.status, headers});
+  }
+};
+```
+
+This Worker only passes along Steam and SteamGridDB requests, so nobody can use it as a general proxy. Don't use a public proxy you find online: your Steam and SteamGridDB keys would pass through someone else's server.
+
+**Already run a server?** Any CORS proxy works, for example [cors-anywhere](https://github.com/Rob--W/cors-anywhere). Enter its address, like `http://your-server:8080/`.
+
 ## Where your data is stored
 
 | Opened from… | Saved to | Badge shown under the app's name |
@@ -103,6 +134,7 @@ Every release is a new file named with the release date. The first release of a 
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk4** | **How to get a proxy, in the app.** The Sync tab explains how to set up a free Cloudflare Worker proxy step by step, with a **Copy code** button, and the SteamGridDB settings link straight to it. |
 | **2026-11-16 mk3** | Works fully without PageVault: with a CORS proxy (Sync tab), Steam playtime syncs on its own and SteamGridDB box art fills in, the same as in PageVault. Without a proxy, Sync now with the two-step method and Browse SteamGridDB + Upload cover still work. |
 | **2026-11-16 mk2** | The preview now says plainly that, because of iOS, an HTML file saved on an iPhone or iPad can't be opened in Safari, and points to PageVault instead. |
 | **2026-11-16 mk1** | The preview shown when the file can't run (like in the iPhone Files app) now explains how to open it on a computer, Android, iPhone and iPad. |
