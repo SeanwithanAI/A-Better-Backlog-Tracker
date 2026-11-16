@@ -18,7 +18,7 @@
 
 </div>
 
-![Library: cover-art tiles with status, main-story time and hours played](docs/screenshots/library.png)
+![Library: cover-art tiles with status, excitement, player rating and main-story time](docs/screenshots/library.png)
 
 ---
 
@@ -61,15 +61,15 @@ Backloggd has no export of its own, so a free, open-source browser extension add
 
 ## Screenshots
 
-| Up next | Year in review |
+| Up next | Year plan |
 |---|---|
-| ![Up next: the top pick with reasons, and other good picks](docs/screenshots/upnext.png) | ![Year in review: totals, highlights and month by month](docs/screenshots/recap.png) |
+| ![Up next: the top pick with reasons, and other good picks](docs/screenshots/upnext.png) | ![Year plan: a goal and weekly hours, with games laid out month by month and new releases starting the month they come out](docs/screenshots/plan.png) |
 
-| Year plan |
-|---|
-| ![Year plan: games laid out month by month, with must-play pins](docs/screenshots/plan.png) |
+| Year in review | Play log calendar |
+|---|---|
+| ![Year in review: totals, highlights and month by month](docs/screenshots/recap.png) | ![Play log calendar: covers on the days you played](docs/screenshots/calendar.png) |
 
-<sub>Screenshots use made-up games and example data.</sub>
+<sub>Screenshots from a real library.</sub>
 
 ## Getting started
 
