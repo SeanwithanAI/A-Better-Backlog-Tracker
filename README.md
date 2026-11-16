@@ -67,7 +67,7 @@ Backloggd has no export of its own, so a free, open-source browser extension add
 
 | Year in review | Play log calendar |
 |---|---|
-| ![Year in review: totals, highlights and month by month](docs/screenshots/recap.png) | ![Play log calendar: covers on the days you played](docs/screenshots/calendar.png) |
+| ![Year in review: totals, highlights and month by month](docs/screenshots/recap.png) | ![Play log calendar: covers on the days you played, tagged RETRO for retro handheld (Cocoon) and STEAM for Steam](docs/screenshots/calendar.png) |
 
 <sub>Screenshots from a real library.</sub>
 
