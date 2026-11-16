@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk6-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk7-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -132,13 +132,13 @@ This Worker only passes along Steam and SteamGridDB requests, so nobody can use 
 | Opened from… | Saved to | Badge shown under the app's name |
 |---|---|---|
 | **PageVault** | Your own server only, separately for each signed-in person. Nothing is kept in the browser. No backup reminders. | *Saved to your server* |
-| **A local file or the web link** | This browser only. Pictures you upload are kept in the browser's picture storage, which has much more room than the main save. The app asks the browser to keep its data rather than clear it to free up space. Use **Settings → Back up** to keep a copy; a reminder appears after 7 days without one. | *Saved on this device only* |
+| **A local file or the web link** | This browser only, in the browser's large storage (your library and your uploaded pictures), with room for years of data. The app asks the browser to keep its data rather than clear it to free up space. Use **Settings → Back up** to keep a copy; a reminder appears after 7 days without one. | *Saved on this device only* |
 
 Backups include your uploaded pictures and your API keys. Moving between the two: back up on one side and **Import backup** on the other.
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk6.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk7.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -148,6 +148,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk7** | **Room to grow.** Opened on its own, the app now keeps its data in the browser's large storage (IndexedDB) instead of the small save area (about 5 MB, shared with every page on the same site), so a big history never runs out of room. Your data moves over automatically the first time you open this version. The app asks the browser to keep its data, and says so plainly if the browser ever can't save. In PageVault nothing changes. (An older copy of the file opened afterwards won't see data saved by this version, so use this one or newer.) |
 | **2026-11-16 mk6** | **Safer storage.** Uploaded covers and screenshots now go in the browser's picture storage instead of the main save, so storage no longer fills up after a few dozen pictures; pictures from older versions move over automatically. Backups now include your pictures. The app asks the browser to keep its data, explains clearly if storage is ever full, and tells iPhone and iPad users once to add it to the Home Screen so Safari doesn't erase it. Game data credit to RAWG at the bottom of the page. Released under the MIT License. |
 | **2026-11-16 mk5** | **Use it online.** The app now has a web link, [seanwithanai.github.io/A-Better-Backlog-Tracker](https://seanwithanai.github.io/A-Better-Backlog-Tracker/), that works on any device, including iPhone and iPad, and always has the newest version. The preview shown when the file can't run points to it. |
 | **2026-11-16 mk4** | **How to get a proxy, in the app.** The Sync tab explains how to set up a free Cloudflare Worker proxy step by step, with a **Copy code** button, and the SteamGridDB settings link straight to it. |
