@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk12-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk13-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -150,7 +150,7 @@ Backups include your uploaded pictures and your API keys. With uploaded pictures
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk12.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk13.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk13** | **Steam hours in Year in review.** Steam only shares a game's total hours and the last day you played it, so hours already on Steam when you first synced weren't counted in any year (a game you started this year could lose to a shorter one in **Most played**). Year in review now lists games last played on Steam that year with such hours; tick the ones you really played that year and their hours count. Games you started that year come pre-ticked. Games added from your Steam library no longer get Steam's last-played day as their start date, and libraries where that happened are corrected automatically, so they don't all show as started this year. |
 | **2026-11-16 mk12** | The play log calendar shows where each day's play came from: covers get a **RETRO** (retro handheld, from Cocoon) or **STEAM** strip, with a legend, and the day's details list the same tags. On phones the strip is just the color. |
 | **2026-11-16 mk11** | **Year in review counts what you really played.** A game counts in a year and a month only for its play sessions, the day you started, the day you finished, and the stretch between them when it's short, so a game started in 2020 and finished this year no longer shows as played every month. Marking an old game **Completed** while catching up your library no longer stamps today as its finish date (finishing a game you've been playing still does), and imports keep missing dates blank. If many games were marked finished on one day with no play, Year in review offers to clear those dates in one tap; the games stay Completed with their ratings and reviews. |
 | **2026-11-16 mk10** | **Backups for big libraries.** With uploaded pictures, **Back up** now makes a .zip with your data and each picture as an image file, instead of one large text file. Tested with 600 games and 600 custom covers: the backup is a quarter smaller (124 MB), takes about 4 seconds, uses a fraction of the memory (peak about 70 MB instead of 330 MB) and restores in about 2 seconds, so it's safe on phones. **Download app + data** uses the same backup. Backups made in PageVault now include the covers stored on your server, and restore on their own or into PageVault. Older .json backups still restore. |
