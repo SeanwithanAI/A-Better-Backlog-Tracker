@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk1-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -77,8 +77,8 @@ The app is one self-contained `.html` file: no install, no account, nothing else
 
 **iPhone and iPad**
 Safari can't run a downloaded `.html` file. Tapping it in the Files app only shows a preview with the buttons turned off. Use one of these instead:
-- **PageVault (recommended).** Open the app's PageVault link in Safari, tap **Share → Add to Home Screen**, and it opens like a regular app. Your data is saved on your server and syncs with your other devices.
-- **Microsoft Edge.** Save the file to the Files app, then open it with Edge (in Files, tap and hold the file → **Share** → **Edge**). Keep backups: data saved this way can be lost if Edge clears its storage.
+- **PageVault (recommended).** Open the app's PageVault link in **Safari**, then tap **Share** (on iOS 26, tap **•••** first, then **Share**). Scroll down the list and tap **Add to Home Screen**. If it isn't there, tap **Edit Actions** at the bottom of the list and add it. It then opens like a regular app, and your data is saved on your server and syncs with your other devices.
+- **Microsoft Edge.** Save the file to the Files app, then open it with Edge (in Files, open the file, tap **Share** and choose **Edge**). Keep backups: data saved this way can be lost if Edge clears its storage.
 
 **Android**
 1. Download the file in Chrome.
@@ -103,6 +103,7 @@ Every release is a new file named with the release date. The first release of a 
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk1** | The preview shown when the file can't run (like in the iPhone Files app) now explains how to open it on a computer, Android, iPhone and iPad. |
 | **2026-11-16** | Cocoon playtime is labeled **Retro handheld** (log tag **RETRO**); notes on sessions you already imported are relabeled when you open the tracker. |
 | **2026-11-15 mk2** | Same as 2026-11-15 mk1, re-released so PageVault picks up the update. |
 | **2026-11-15 mk1** | **Phone keyboard fix.** Pop-up forms now fit above the on-screen keyboard and keep the field you're typing in visible, instead of sliding it out of view on iPhone. |
