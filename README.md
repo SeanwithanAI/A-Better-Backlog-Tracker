@@ -6,10 +6,11 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk5-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk6-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
+![License: MIT](https://img.shields.io/badge/license-MIT-16a34a)
 
 **[▶ Open it online](https://seanwithanai.github.io/A-Better-Backlog-Tracker/)** · nothing to install · your data stays on your device
 
@@ -66,11 +67,11 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 4. Mark how excited you are about each game, and check **Up next** when you can't decide.
 5. When you start or finish a game, log it in **Play log** and answer *How was it?*
 
-Online lookups (RAWG, Steam, cover images) use free public services. Everything else works offline.
+No account and no tracking. The app only goes online for the lookups you use: game search and details from [RAWG](https://rawg.io), and, if you turn them on, Steam playtime and SteamGridDB box art. Everything else works offline. Game data and images from [RAWG](https://rawg.io).
 
 ## Opening the file on your devices
 
-**Easiest: the web link.** Open **[seanwithanai.github.io/A-Better-Backlog-Tracker](https://seanwithanai.github.io/A-Better-Backlog-Tracker/)** on any phone, tablet or computer. It's this same app, served by GitHub, and it always has the newest version. Nothing is sent anywhere: your data is saved in that browser on that device, just like the downloaded file. On iPhone or iPad, open it in Safari, tap **Share** (on iOS 26 and later, tap **•••** first), then **Add to Home Screen** to keep it like an app. On Android, use Chrome's **⋮ → Add to Home screen**.
+**Easiest: the web link.** Open **[seanwithanai.github.io/A-Better-Backlog-Tracker](https://seanwithanai.github.io/A-Better-Backlog-Tracker/)** on any phone, tablet or computer. It's this same app, served by GitHub, and it always has the newest version. Your data is saved in that browser on that device, just like the downloaded file. There's no account and no tracking. On iPhone or iPad, open it in Safari, tap **Share** (on iOS 26 and later, tap **•••** first), then **Add to Home Screen** to keep it like an app. **Do this on iPhone and iPad:** Safari can erase a website's saved data if you go 7 days of using Safari without opening it, but it keeps the data of pages added to the Home Screen. The app reminds you once. On Android, use Chrome's **⋮ → Add to Home screen**.
 
 Prefer to keep your own copy of the file? The steps below cover that.
 
@@ -131,13 +132,13 @@ This Worker only passes along Steam and SteamGridDB requests, so nobody can use 
 | Opened from… | Saved to | Badge shown under the app's name |
 |---|---|---|
 | **PageVault** | Your own server only, separately for each signed-in person. Nothing is kept in the browser. No backup reminders. | *Saved to your server* |
-| **A local file** | This browser only. Use **Settings → Back up** to keep a copy; a reminder appears after 7 days without one. | *Saved on this device only* |
+| **A local file or the web link** | This browser only. Pictures you upload are kept in the browser's picture storage, which has much more room than the main save. The app asks the browser to keep its data rather than clear it to free up space. Use **Settings → Back up** to keep a copy; a reminder appears after 7 days without one. | *Saved on this device only* |
 
-Backups include your API keys. Moving between the two: back up on one side and **Import backup** on the other.
+Backups include your uploaded pictures and your API keys. Moving between the two: back up on one side and **Import backup** on the other.
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk5.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk6.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -147,6 +148,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk6** | **Safer storage.** Uploaded covers and screenshots now go in the browser's picture storage instead of the main save, so storage no longer fills up after a few dozen pictures; pictures from older versions move over automatically. Backups now include your pictures. The app asks the browser to keep its data, explains clearly if storage is ever full, and tells iPhone and iPad users once to add it to the Home Screen so Safari doesn't erase it. Game data credit to RAWG at the bottom of the page. Released under the MIT License. |
 | **2026-11-16 mk5** | **Use it online.** The app now has a web link, [seanwithanai.github.io/A-Better-Backlog-Tracker](https://seanwithanai.github.io/A-Better-Backlog-Tracker/), that works on any device, including iPhone and iPad, and always has the newest version. The preview shown when the file can't run points to it. |
 | **2026-11-16 mk4** | **How to get a proxy, in the app.** The Sync tab explains how to set up a free Cloudflare Worker proxy step by step, with a **Copy code** button, and the SteamGridDB settings link straight to it. |
 | **2026-11-16 mk3** | Works fully without PageVault: with a CORS proxy (Sync tab), Steam playtime syncs on its own and SteamGridDB box art fills in, the same as in PageVault. Without a proxy, Sync now with the two-step method and Browse SteamGridDB + Upload cover still work. |
@@ -173,5 +175,9 @@ Every release so far, newest first. Older releases are listed for reference; onl
 | **2026-11-13** | *How was it?* reviews, other players' ratings and subreddit posts, and the Up next recommender. |
 | **2026-11-12 mk1** | Cover-art tiles. |
 | **2026-11-12** | First release. |
+
+## License
+
+[MIT](LICENSE): free to use, change and share, including in your own projects. Keep the copyright notice.
 
 <div align="center"><sub>A Better Backlog Tracker · Game Backlog & Play Log · by SeanwithanAI</sub></div>
