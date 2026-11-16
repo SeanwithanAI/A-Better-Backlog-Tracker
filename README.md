@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--15%20mk2-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -38,7 +38,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Play log with start and finish dates.** Log when you started and finished each game, with optional hours and notes. See a **calendar** of what you played each day, and a counter of games played and finished this year, with your goal.
 - **Year in review.** Games played and finished, hours, longest streak, favorite, most played, quickest finish, longest journey, month by month, and every game's start-to-finish timeline. A banner announces it each December.
 - **Import your backlog.** Paste a list of games, or import a game-list file (for example, a Backloggd backlog). Games you already have are skipped, and RAWG can fill in covers and ratings afterwards.
-- **Ayn Thor playtime (optional).** Cocoon's backups include every play session. Make a backup in Cocoon and import it in the **Sync** tab. Only new sessions are added, so importing the same backup again is safe.
+- **Retro handheld playtime (optional).** Cocoon's backups include every play session. Make a backup in Cocoon and import it in the **Sync** tab. Only new sessions are added, so importing the same backup again is safe.
 - **Steam playtime (optional).** Add your Steam Web API key and SteamID64. In PageVault, your playtime syncs automatically every time you open the tracker (at most every 30 minutes): new hours go into your play log, and games you've started move to Playing. Opened on its own, use **Sync now** with a proxy or the two-step copy-and-paste.
 - **Day or Dark.** Choose Day, Dark or Auto (follows your device) in Settings.
 - **Backup and restore,** with a reminder when you haven't backed up in a week (outside PageVault).
@@ -66,6 +66,28 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 
 Online lookups (RAWG, Steam, cover images) use free public services. Everything else works offline.
 
+## Opening the file on your devices
+
+The app is one self-contained `.html` file: no install, no account, nothing else to download. Grab the newest `A-Better-Backlog-Tracker-<date>.html` (later releases the same day end in `mkN`): open it in the file list above, then use the **Download raw file** button (↓) at the top right of the file view.
+
+**Desktop (Windows, macOS, Linux)**
+1. Download the file and move it somewhere permanent, like Documents.
+2. Double-click it. It opens in your default browser (Chrome, Edge, Firefox, Safari and Brave all work).
+3. Bookmark it, and always open it the same way: same file, same place, same browser. Your data is saved in that browser for that file, so a copy in another folder or another browser starts empty.
+
+**iPhone and iPad**
+Safari can't run a downloaded `.html` file. Tapping it in the Files app only shows a preview with the buttons turned off. Use one of these instead:
+- **PageVault (recommended).** Open the app's PageVault link in Safari, tap **Share → Add to Home Screen**, and it opens like a regular app. Your data is saved on your server and syncs with your other devices.
+- **Microsoft Edge.** Save the file to the Files app, then open it with Edge (in Files, tap and hold the file → **Share** → **Edge**). Keep backups: data saved this way can be lost if Edge clears its storage.
+
+**Android**
+1. Download the file in Chrome.
+2. Open it from Chrome: **⋮ → Downloads** and tap the file (or from the Files app, **Open with → Chrome**).
+3. Open it from Chrome's Downloads each time. A home-screen shortcut to a downloaded file may stop working after Chrome restarts.
+4. Turn on backups (the app reminds you every 7 days), or use **PageVault** and **⋮ → Add to Home screen** so your data lives on your server instead.
+
+**Moving to another device:** download a backup in the app, open the same version on the new device, and restore the backup there. With PageVault there's nothing to move.
+
 ## Where your data is stored
 
 | Opened from… | Saved to | Badge shown under the app's name |
@@ -81,14 +103,15 @@ Every release is a new file named with the release date. The first release of a 
 
 | Version | Notes |
 |---|---|
+| **2026-11-16** | Cocoon playtime is labeled **Retro handheld** (log tag **RETRO**); notes on sessions you already imported are relabeled when you open the tracker. |
 | **2026-11-15 mk2** | Same as 2026-11-15 mk1, re-released so PageVault picks up the update. |
 | **2026-11-15 mk1** | **Phone keyboard fix.** Pop-up forms now fit above the on-screen keyboard and keep the field you're typing in visible, instead of sliding it out of view on iPhone. |
 | **2026-11-15** | **Smarter Up next picks.** Ignores store tags (achievements, controller support), weighs rare traits over broad ones like Action/Adventure, learns from playtime (many hours = liked, dropped early = disliked), counts dislikes more, understands series (a series you love ranks higher, one you didn't enjoy drops, play earlier entries first), mixes series up, and names the favorite each pick is most like. New **⚡ Quick taste setup**: one tap per finished game, plus add games you played before. |
 | **2026-11-14 mk9** | **Download app + data (.zip)** replaces Download this app: one click gives a zip with the app's HTML, your backup and a how-to-restore note. Like a backup, it includes your API keys. |
 | **2026-11-14 mk8** | **Download this app** in **Settings**: the HTML file for this version, to keep or run on its own. |
 | **2026-11-14 mk7** | Year plan: 🔥 Can't-wait games are always included, and games that aren't out yet start the month they release (the rest of the plan works around them); games coming out later, or with no date, are listed separately. Each game has an editable release date and a “Not out yet” box; Up next skips unreleased games. Play log: a “This is the day I started the game” box instead of marking games started automatically, and “No change” is the default. The calendar shows only days you played; Year in review is unchanged and now explains its colors. |
-| **2026-11-14 mk6** | Ayn Thor playtime is imported by hand only (**Sync → Import a Cocoon backup**); the automatic pickup through PageVault was removed. |
-| **2026-11-14 mk5** | Ayn Thor playtime from Cocoon: import a Cocoon backup in the **Sync** tab (formerly Steam), or have new backups come in automatically through PageVault's imports folder (PageVault 2026-11-14 mk3). Each session becomes a play-log entry; games not in your library can be added, linked or ignored. Name matching no longer treats “Ultimate” as an edition word. Times under an hour show in minutes. |
+| **2026-11-14 mk6** | Retro handheld playtime is imported by hand only (**Sync → Import a Cocoon backup**); the automatic pickup through PageVault was removed. |
+| **2026-11-14 mk5** | Retro handheld playtime from Cocoon: import a Cocoon backup in the **Sync** tab (formerly Steam), or have new backups come in automatically through PageVault's imports folder (PageVault 2026-11-14 mk3). Each session becomes a play-log entry; games not in your library can be added, linked or ignored. Name matching no longer treats “Ultimate” as an edition word. Times under an hour show in minutes. |
 | **2026-11-14 mk4** | Day, Dark or Auto appearance in **Settings** (Auto follows your device), like the other apps. |
 | **2026-11-14 mk3** | Box art from SteamGridDB (needs a free key and PageVault 2026-11-14 mk2) instead of screenshots; never replaces art you linked or uploaded, and clearing your link brings automatic art back. Upload your own cover and screenshots, with recommended sizes shown. |
 | **2026-11-14 mk2** | Automatic Steam playtime sync in PageVault, through PageVault's new relay (needs PageVault 2026-11-14 mk1 or later). Game search and RAWG lookups also go through the relay in PageVault, so they work in Brave on iPhone. |
