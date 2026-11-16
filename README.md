@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk7-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk8-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -40,7 +40,8 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Year plan.** Set a goal (*finish 20 games*) and how many hours a week you can play. The plan fills the year month by month from your backlog. Mark a game **📌 must play** and the plan makes room, telling you what it moved out to stay within your hours. If the goal doesn't fit, it shows how many hours a week you'd need.
 - **Play log with start and finish dates.** Log when you started and finished each game, with optional hours and notes. See a **calendar** of what you played each day, and a counter of games played and finished this year, with your goal.
 - **Year in review.** Games played and finished, hours, longest streak, favorite, most played, quickest finish, longest journey, month by month, and every game's start-to-finish timeline. A banner announces it each December.
-- **Import your backlog.** Paste a list of games, or import a game-list file (for example, a Backloggd backlog). Games you already have are skipped, and RAWG can fill in covers and ratings afterwards.
+- **Import from Backloggd.** Bring your whole Backloggd library over with your ratings, start and finish dates, hours, play sessions and reviews; your ratings teach **Up next** what you like right away. Backloggd has no export of its own, so install the free, open-source [Backloggd+ extension](https://addons.mozilla.org/firefox/addon/backloggd-plus/) (Firefox), export from **Backloggd → Settings → Data** (CSV or JSON), then in **Find games → Import from Backloggd or a list**, choose the file. Your Backloggd wishlist can come along as 🌙 Someday.
+- **Import any list.** Paste one game per line, or import a game-list file. Games you already have are skipped, and RAWG can fill in covers and ratings afterwards.
 - **Retro handheld playtime (optional).** Cocoon's backups include every play session. Make a backup in Cocoon and import it in the **Sync** tab. Only new sessions are added, so importing the same backup again is safe.
 - **Steam playtime (optional).** Add your Steam Web API key and SteamID64. In PageVault, your playtime syncs automatically every time you open the tracker (at most every 30 minutes): new hours go into your play log, and games you've started move to Playing. Opened on its own, add a CORS proxy and it syncs automatically the same way, or use **Sync now** with the two-step copy-and-paste.
 - **Day or Dark.** Choose Day, Dark or Auto (follows your device) in Settings.
@@ -63,7 +64,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 
 1. Open `A-Better-Backlog-Tracker-<date>-<mk>.html` in any modern browser, or open it from **PageVault**.
 2. For game search, get a free API key at [rawg.io/apidocs](https://rawg.io/apidocs) and paste it in **Find games** (or **Settings**).
-3. Add games from **Find games**, use **Import a list**, or import a game-list file from **Settings → Import backup**.
+3. Add games from **Find games**, use **Import from Backloggd or a list**, or import a game-list file from **Settings → Import backup**.
 4. Mark how excited you are about each game, and check **Up next** when you can't decide.
 5. When you start or finish a game, log it in **Play log** and answer *How was it?*
 
@@ -138,7 +139,7 @@ Backups include your uploaded pictures and your API keys. Moving between the two
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk7.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk8.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -148,6 +149,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk8** | **Import from Backloggd.** Choose the CSV or JSON file from the free Backloggd+ extension and your games come over with their status, rating, start and finish dates, hours, play sessions (JSON) and review. Played games come in as Completed, and ratings teach Up next what you like. Optionally bring your wishlist as 🌙 Someday. Games already in your library are skipped. Imported sessions are tagged **BACKLOGGD** in the play log. |
 | **2026-11-16 mk7** | **Room to grow.** Opened on its own, the app now keeps its data in the browser's large storage (IndexedDB) instead of the small save area (about 5 MB, shared with every page on the same site), so a big history never runs out of room. Your data moves over automatically the first time you open this version. The app asks the browser to keep its data, and says so plainly if the browser ever can't save. In PageVault nothing changes. (An older copy of the file opened afterwards won't see data saved by this version, so use this one or newer.) |
 | **2026-11-16 mk6** | **Safer storage.** Uploaded covers and screenshots now go in the browser's picture storage instead of the main save, so storage no longer fills up after a few dozen pictures; pictures from older versions move over automatically. Backups now include your pictures. The app asks the browser to keep its data, explains clearly if storage is ever full, and tells iPhone and iPad users once to add it to the Home Screen so Safari doesn't erase it. Game data credit to RAWG at the bottom of the page. Released under the MIT License. |
 | **2026-11-16 mk5** | **Use it online.** The app now has a web link, [seanwithanai.github.io/A-Better-Backlog-Tracker](https://seanwithanai.github.io/A-Better-Backlog-Tracker/), that works on any device, including iPhone and iPad, and always has the newest version. The preview shown when the file can't run points to it. |
