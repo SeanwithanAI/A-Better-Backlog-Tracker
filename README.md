@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--16%20mk15-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--16%20mk16-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -150,7 +150,7 @@ Backups include your uploaded pictures and your API keys. With uploaded pictures
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk15.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-16-mk16.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-16 mk16** | The play log calendar shows **hours played that month** next to the number of games (for example "2 games played · 13.3 h this month"), and updates as you move between months. A session spanning several days that crosses into another month is split between them by day. |
 | **2026-11-16 mk15** | **Simpler logging.** In **Log a game** (and the play log on each game), **Started** is now empty by default: leave it blank to log playing today, or enter the day you started the game to set its start date and move it to Playing. The "This is the day I started the game" checkbox is gone. If the game already started earlier, the date you enter is logged as a play session and your real start date stays. |
 | **2026-11-16 mk14** | **Sort your Steam games.** In **Sync → Steam games not in your library**, sort by name, **least played first** (never-played games, then the lowest playtime up), most played first, or recently played (with the last-played date). Works with the All / Never played / Played filter, and your choice is remembered. |
 | **2026-11-16 mk13** | **Steam hours in Year in review.** Steam only shares a game's total hours and the last day you played it, so hours already on Steam when you first synced weren't counted in any year (a game you started this year could lose to a shorter one in **Most played**). Year in review now lists games last played on Steam that year with such hours; tick the ones you really played that year and their hours count. Games you started that year come pre-ticked. Games added from your Steam library no longer get Steam's last-played day as their start date, and libraries where that happened are corrected automatically, so they don't all show as started this year. |
