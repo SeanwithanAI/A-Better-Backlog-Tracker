@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--24%20mk4-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--24%20mk5-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -37,7 +37,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Up next.** One clear pick for what to play next, plus backups, each with the reasons (*"Heavy on story, like Disco Elysium, which you enjoyed"*). Choose how long a game you want, from short to 30 h+. **Not now** hides a pick for 3 days.
 - **It learns what you like.** After you finish a game, *How was it?* asks how you felt (😍 🙂 😐 👎), what worked (story, combat, music, challenge…), what didn't, and whether you want more like it. Every review changes the picks and the **Your taste so far** summary.
 - **Other players' opinions.** RAWG player ratings (Exceptional → Skip), the critic score, recent posts from the game's subreddit, and links to Steam, Metacritic, RAWG and Backloggd reviews.
-- **Year plan.** Set a goal (*finish 20 games*) and how many hours a week you can play. The plan fills the year month by month from your backlog. Mark a game **📌 must play** and the plan makes room, telling you what it moved out to stay within your hours. If the goal doesn't fit, it shows how many hours a week you'd need. **🔥 Can't-wait** games get as many spots as your goal and hours allow, newest releases first, so the day-one games you're waiting on make it in; any that don't fit are listed. Brave enough? Tap **Ready to be depressed?** to see the year you'll beat your whole backlog at the rate you play now.
+- **Year plan.** Set a goal (*finish 20 games*) and how many hours a week you can play. The plan fills the year month by month from your backlog. Mark a game **📌 must play** and the plan makes room, telling you what it moved out to stay within your hours. If the goal doesn't fit, it shows how many hours a week you'd need. **🔥 Can't-wait** games get as many spots as your goal and hours allow, newest releases first, so the day-one games you're waiting on make it in; any that don't fit are listed. Below it, a blurred tile hides the year you'll beat your whole backlog at the rate you play now. Brave enough? Tap **Ready to be depressed?** and watch it count up.
 - **Play log with start and finish dates.** Log when you started and finished each game, with optional hours and notes. See a **calendar** of what you played each day, and a counter of games played and finished this year, with your goal.
 - **Year in review.** Games played and finished, hours, longest streak, favorite, most played, quickest finish, longest journey, month by month, and every game's start-to-finish timeline. A banner announces it each December.
 - **Import from Backloggd.** Bring your whole Backloggd library over with your ratings, start and finish dates, hours, play sessions and reviews; your ratings teach **Up next** what you like right away. Your Backloggd wishlist can come along as 🌙 Someday. See [Importing from Backloggd](#importing-from-backloggd).
@@ -150,7 +150,7 @@ Backups include your uploaded pictures and your API keys. With uploaded pictures
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24-mk4.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24-mk5.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-24 mk5** | **A more painful reveal.** The backlog tile now shows blurred, with **Ready to be depressed?** on top, instead of folded away. Tap it and the blur clears, the year counts up from now and slows to a crawl (a worse answer takes longer), then slams down with a shake, a red flash and, on Android, a buzz. **Hide it again** blurs it back. With reduced motion turned on in your device settings, it just appears. |
 | **2026-11-24 mk4** | **When will you beat your backlog?** A new tile on the Year plan, hidden until you tap **Ready to be depressed?** It shows the year you'll finish every game in your backlog, on hold and playing, in big red numbers, with the month and how many years away it is. Your pace is your average hours a week from the play log over the last 12 weeks, once it has at least 4 weeks of play; until then it uses this year's plan hours. It counts main-story times minus what you've played, and not games you add later. **Hide it again** puts it back. |
 | **2026-11-24 mk3** | **Year plan opens even faster.** Your picks and the plan are kept and reused until you change something, so going back to the Year plan is close to instant. Changing the goal or hours, pinning or taking out a game no longer works out your picks again. Month names are worked out once, and months and library tiles that are off screen aren't drawn until you scroll to them. On a phone with a 400-game library, the plan opens in about 0.2 s the first time and 0.03 s after that, and pinning a game takes about 0.13 s. The plan and the picks are exactly the same. |
 | **2026-11-24 mk2** | **Faster with big libraries.** The year plan and the picks (Up next, Discover) are much quicker with hundreds of games: on a phone, a 400-game library's year plan now opens in about 0.15 s instead of about 3 s, and pinning or taking out a game feels instant. Each game's remaining hours and series are now worked out once instead of over and over. The plan and the picks themselves are exactly the same. |
