@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--24-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--24%20mk1-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -37,7 +37,7 @@ A Better Backlog Tracker keeps your game backlog, your play log and your reviews
 - **Up next.** One clear pick for what to play next, plus backups, each with the reasons (*"Heavy on story, like Disco Elysium, which you enjoyed"*). Choose how long a game you want, from short to 30 h+. **Not now** hides a pick for 3 days.
 - **It learns what you like.** After you finish a game, *How was it?* asks how you felt (😍 🙂 😐 👎), what worked (story, combat, music, challenge…), what didn't, and whether you want more like it. Every review changes the picks and the **Your taste so far** summary.
 - **Other players' opinions.** RAWG player ratings (Exceptional → Skip), the critic score, recent posts from the game's subreddit, and links to Steam, Metacritic, RAWG and Backloggd reviews.
-- **Year plan.** Set a goal (*finish 20 games*) and how many hours a week you can play. The plan fills the year month by month from your backlog. Mark a game **📌 must play** and the plan makes room, telling you what it moved out to stay within your hours. If the goal doesn't fit, it shows how many hours a week you'd need.
+- **Year plan.** Set a goal (*finish 20 games*) and how many hours a week you can play. The plan fills the year month by month from your backlog. Mark a game **📌 must play** and the plan makes room, telling you what it moved out to stay within your hours. If the goal doesn't fit, it shows how many hours a week you'd need. **🔥 Can't-wait** games get as many spots as your goal and hours allow, newest releases first, so the day-one games you're waiting on make it in; any that don't fit are listed.
 - **Play log with start and finish dates.** Log when you started and finished each game, with optional hours and notes. See a **calendar** of what you played each day, and a counter of games played and finished this year, with your goal.
 - **Year in review.** Games played and finished, hours, longest streak, favorite, most played, quickest finish, longest journey, month by month, and every game's start-to-finish timeline. A banner announces it each December.
 - **Import from Backloggd.** Bring your whole Backloggd library over with your ratings, start and finish dates, hours, play sessions and reviews; your ratings teach **Up next** what you like right away. Your Backloggd wishlist can come along as 🌙 Someday. See [Importing from Backloggd](#importing-from-backloggd).
@@ -150,7 +150,7 @@ Backups include your uploaded pictures and your API keys. With uploaded pictures
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24-mk1.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-24 mk1** | **Year plan: can't-wait games no longer overflow it.** Before, every 🔥 can't-wait game was forced in, which could leave no room for your goal. Now the plan fits as many can't-wait games as it can while still reaching your goal in your weekly hours, and nothing it picks runs past December. The newest releases come first, so upcoming games you buy on day one make it in ahead of older ones. If there are hours left over, more can't-wait games are added, even past your goal. Can't-wait games that don't fit are listed, and you can add one as a 📌 must-play to swap it in. Must-play games and games you're playing always stay. |
 | **2026-11-24** | **Removing a game no longer crashes some phone browsers.** "Remove game" and the other "Are you sure?" questions (adding a list of games, restoring a backup, erasing everything, clearing finish dates) now use the app's own confirm box instead of the browser's popup, which made Brave on Android crash. Cancel, tapping outside the box, Escape and the phone's Back button all back out safely. |
 | **2026-11-16 mk16** | The play log calendar shows **hours played that month** next to the number of games (for example "2 games played · 13.3 h this month"), and updates as you move between months. A session spanning several days that crosses into another month is split between them by day. |
 | **2026-11-16 mk15** | **Simpler logging.** In **Log a game** (and the play log on each game), **Started** is now empty by default: leave it blank to log playing today, or enter the day you started the game to set its start date and move it to Playing. The "This is the day I started the game" checkbox is gone. If the game already started earlier, the date you enter is logged as a play session and your real start date stays. |
