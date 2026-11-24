@@ -6,7 +6,7 @@
 
 **Game Backlog & Play Log: what to play next, how long it takes, and your year in games**
 
-![Version](https://img.shields.io/badge/version-2026--11--24%20mk1-7C3AED)
+![Version](https://img.shields.io/badge/version-2026--11--24%20mk2-7C3AED)
 ![Single file](https://img.shields.io/badge/single%20file-HTML-5B21B6)
 ![No account needed](https://img.shields.io/badge/no%20sign--up-required-334155)
 ![PageVault ready](https://img.shields.io/badge/PageVault-ready-2563eb)
@@ -150,7 +150,7 @@ Backups include your uploaded pictures and your API keys. With uploaded pictures
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24-mk1.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24-mk2.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-24 mk2** | **Faster with big libraries.** The year plan and the picks (Up next, Discover) are much quicker with hundreds of games: on a phone, a 400-game library's year plan now opens in about 0.15 s instead of about 3 s, and pinning or taking out a game feels instant. Each game's remaining hours and series are now worked out once instead of over and over. The plan and the picks themselves are exactly the same. |
 | **2026-11-24 mk1** | **Year plan: can't-wait games no longer overflow it.** Before, every 🔥 can't-wait game was forced in, which could leave no room for your goal. Now the plan fits as many can't-wait games as it can while still reaching your goal in your weekly hours, and nothing it picks runs past December. The newest releases come first, so upcoming games you buy on day one make it in ahead of older ones. If there are hours left over, more can't-wait games are added, even past your goal. Can't-wait games that don't fit are listed, and you can add one as a 📌 must-play to swap it in. Must-play games and games you're playing always stay. |
 | **2026-11-24** | **Removing a game no longer crashes some phone browsers.** "Remove game" and the other "Are you sure?" questions (adding a list of games, restoring a backup, erasing everything, clearing finish dates) now use the app's own confirm box instead of the browser's popup, which made Brave on Android crash. Cancel, tapping outside the box, Escape and the phone's Back button all back out safely. |
 | **2026-11-16 mk16** | The play log calendar shows **hours played that month** next to the number of games (for example "2 games played · 13.3 h this month"), and updates as you move between months. A session spanning several days that crosses into another month is split between them by day. |
