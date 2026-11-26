@@ -150,7 +150,7 @@ Backups include your uploaded pictures and your API keys. With uploaded pictures
 
 ## Versioning
 
-Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-24-mk6.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
+Only the newest release is kept in the repo: `A-Better-Backlog-Tracker-2026-11-25.html`. Each new release replaces it, and `docs/index.html` (what the web link opens) is updated to match. Your data isn't stored in the file, so moving to a new release keeps it (if you use the downloaded file, open the new one the same way as before, in the same browser, and download a backup first to be safe).
 
 Releases are named with their date. The first release of a day is just the date; later releases that same day add `mk1`, `mk2`, `mk3`… (the count starts over each day). The version is also shown inside the app.
 
@@ -160,6 +160,7 @@ Every release so far, newest first. Older releases are listed for reference; onl
 
 | Version | Notes |
 |---|---|
+| **2026-11-25** | **Backup reminders on phones.** The 7-day backup reminder is now checked again whenever the app comes back on screen, and every hour while it stays open. A tracker added to a phone's Home Screen is usually resumed instead of reloaded, so before this the reminder could be missed for weeks. |
 | **2026-11-24 mk6** | **The "didn't fit" note folds away.** On the Year plan, the list of can't-wait games that didn't fit now starts folded as one line, like "🔥 24 can't-wait games didn't fit". Tap **Show** to see them; it stays open while you change the plan, and starts folded again next time you open the app. |
 | **2026-11-24 mk5** | **A more painful reveal.** The backlog tile now shows blurred, with **Ready to be depressed?** on top, instead of folded away. Tap it and the blur clears, the year counts up from now and slows to a crawl (a worse answer takes longer), then slams down with a shake, a red flash and, on Android, a buzz. **Hide it again** blurs it back. With reduced motion turned on in your device settings, it just appears. |
 | **2026-11-24 mk4** | **When will you beat your backlog?** A new tile on the Year plan, hidden until you tap **Ready to be depressed?** It shows the year you'll finish every game in your backlog, on hold and playing, in big red numbers, with the month and how many years away it is. Your pace is your average hours a week from the play log over the last 12 weeks, once it has at least 4 weeks of play; until then it uses this year's plan hours. It counts main-story times minus what you've played, and not games you add later. **Hide it again** puts it back. |
